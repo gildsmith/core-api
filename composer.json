@@ -1,0 +1,31 @@
+{
+    "name": "gildsmith/hub-api",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Gildsmith\\HubApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mateusz Chmielewski",
+            "email": "hello@itsmattch.com"
+        }
+    ],
+    "require": {
+        "lorisleiva/laravel-actions": "^2.8"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Gildsmith\\HubApi\\Providers\\HubServiceProvider"
+            ],
+            "aliases": {
+                "Gildsmith": "Gildsmith\\HubApi\\Facades\\Gildsmith"
+            }
+        }
+    }
+}
