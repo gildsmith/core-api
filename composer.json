@@ -13,7 +13,8 @@
         }
     ],
     "require": {
-        "lorisleiva/laravel-actions": "^2.8"
+        "lorisleiva/laravel-actions": "^2.8",
+        "laravel/pint": "^1.15"
     },
     "require-dev": {
         "orchestra/testbench": "^9.0"

@@ -10,17 +10,18 @@ namespace Gildsmith\HubApi\Router\Web;
 readonly class WebApplication
 {
     /**
-     * @param string $identifier A unique name to identify the web application.
-     * @param string $route The top-level URL path where the application is accessible.
-     * @param string $template The name of the template file used to render the application's entry point.
-     * @param array $params Optional custom data to be passed to the template during rendering.
+     * @param  string  $identifier  A unique name to identify the web application.
+     * @param  string  $route  The top-level URL path where the application is accessible.
+     * @param  string  $template  The name of the template file used to render the application's entry point.
+     * @param  array  $params  Optional custom data to be passed to the template during rendering.
      */
     public function __construct(
         public string $identifier,
         public string $route,
         public string $template,
         public array $params = [],
-    ) {}
+    ) {
+    }
 
     /**
      * Static factory method for flexible WebApplication creation.

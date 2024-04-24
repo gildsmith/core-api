@@ -28,7 +28,7 @@ class WebRegistry
     /** TODO */
     protected static function initFallback(): void
     {
-        if (!empty(self::$fallbackApplication)) {
+        if (! empty(self::$fallbackApplication)) {
             return;
         }
         $fallbackTemplate = config('gildsmith.default', 'gildsmith::template');
@@ -56,6 +56,7 @@ class WebRegistry
                 return $app;
             }
         }
+
         return self::fallback();
     }
 

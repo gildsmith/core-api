@@ -12,6 +12,7 @@ class WebRouter
     public function __invoke(string $route): Response
     {
         $webapp = WebRegistry::get($route);
+
         return response()->view($webapp->template, compact('webapp'));
     }
 }

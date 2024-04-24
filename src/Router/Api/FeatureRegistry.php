@@ -19,7 +19,7 @@ class FeatureRegistry
     public static function add(string $feature): void
     {
         $feature = strtolower($feature);
-        if (!in_array($feature, self::$registry)) {
+        if (! in_array($feature, self::$registry)) {
             self::$registry[] = $feature;
         }
     }

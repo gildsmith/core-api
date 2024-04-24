@@ -32,15 +32,16 @@ class FeatureRoutingRegistry
     {
         $feature = strtolower($feature);
 
-        if (!ctype_alnum($feature)) {
+        if (! ctype_alnum($feature)) {
             return false;
         }
 
-        if (!in_array($feature, self::$registry)) {
+        if (! in_array($feature, self::$registry)) {
             self::$registry[$feature] = [];
         }
 
         self::$registry[$feature][] = $callable;
+
         return true;
     }
 }

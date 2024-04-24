@@ -1,4 +1,5 @@
 <?php
+
 /** @noinspection PhpUnused */
 
 namespace Gildsmith\HubApi;
@@ -23,7 +24,7 @@ class Gildsmith
     {
         FeatureRoutingRegistry::trigger();
 
-        $callback = fn() => (response(null, 404));
+        $callback = fn () => (response(null, 404));
 
         Route::any('/', $callback);
         Route::any('{route}', $callback)->where('route', '.*');
@@ -47,7 +48,7 @@ class Gildsmith
     /**
      * Adds a web application to the registry.
      *
-     * @param WebApplication $webApplication The application to be registered.
+     * @param  WebApplication  $webApplication  The application to be registered.
      */
     public function registerWebApplication(WebApplication $webApplication): void
     {
@@ -62,8 +63,8 @@ class Gildsmith
     /**
      * Registers routes for a specific feature.
      *
-     * @param string $feature The feature name.
-     * @param callable $callable A closure containing route definitions.
+     * @param  string  $feature  The feature name.
+     * @param  callable  $callable  A closure containing route definitions.
      */
     public function registerFeatureRoutes(string $feature, callable $callable): void
     {
@@ -73,7 +74,7 @@ class Gildsmith
     /**
      * Registers multiple features.
      *
-     * @param string[] $features An array of feature names.
+     * @param  string[]  $features  An array of feature names.
      */
     public function registerFeatures(string ...$features): void
     {

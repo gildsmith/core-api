@@ -16,14 +16,15 @@ use Lorisleiva\Actions\Concerns\AsController;
  */
 class ReadFeatures extends Action
 {
-    use AsAction, AsController, AsCommand;
+    use AsAction, AsCommand, AsController;
 
     public $commandSignature = 'gildsmith:features';
+
     public $commandDescription = 'Lists enabled Gildsmith features';
 
     public function asCommand(Command $command): void
     {
-        $command->line('Enabled Gildsmith Features: ' . $this->asString());
+        $command->line('Enabled Gildsmith Features: '.$this->asString());
     }
 
     public function asString(): string

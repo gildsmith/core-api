@@ -17,7 +17,7 @@ class ExpectsFeature
 {
     public function handle(Request $request, Closure $next, string $feature): Response
     {
-        return !in_array($feature, FeatureRegistry::get())
+        return ! in_array($feature, FeatureRegistry::get())
             ? response(null, 404)
             : $next($request);
     }
