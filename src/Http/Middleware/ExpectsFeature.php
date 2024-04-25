@@ -18,7 +18,23 @@ class ExpectsFeature
     public function handle(Request $request, Closure $next, string $feature): Response
     {
         return ! in_array($feature, FeatureRegistry::get())
-            ? response(null, 404)
+            ? $this->respond($feature)
             : $next($request);
+    }
+
+    public function respond(string $feature): Response
+    {
+        return config('gildsmith.silent_features', false)
+            ? response(null, 404)
+            : response()->json($this->error($feature), 503);
+    }
+
+    public function error(string $feature): array
+    {
+        $feature = ucfirst($feature);
+
+        return [
+            'error' => "$feature is temporarily disabled.",
+        ];
     }
 }
