@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 class Gildsmith
 {
     /** @var string The current version of the Gildsmith Hub package */
-    public const VERSION = '1.0.0-alpha';
+    public const string VERSION = '1.0.0-alpha';
 
     /**
      * Directs all requests with the '/api' prefix

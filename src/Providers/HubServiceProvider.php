@@ -2,6 +2,7 @@
 
 namespace Gildsmith\HubApi\Providers;
 
+use Gildsmith\HubApi\Actions\ReadApplications;
 use Gildsmith\HubApi\Actions\ReadFeatures;
 use Gildsmith\HubApi\Gildsmith;
 use Gildsmith\HubApi\Http\Middleware\ExpectsFeature;
@@ -21,6 +22,7 @@ class HubServiceProvider extends ServiceProvider
      */
     protected array $commands = [
         ReadFeatures::class,
+        ReadApplications::class,
     ];
 
     public function register(): void
@@ -82,6 +84,8 @@ class HubServiceProvider extends ServiceProvider
     {
         WebRegistry::init();
         Route::get('_gildsmith/features', ReadFeatures::class);
+        Route::get('_gildsmith/apps', ReadApplications::class);
+        Route::get('_gildsmith/apps/{app}', ReadApplications::class);
     }
 
     /**

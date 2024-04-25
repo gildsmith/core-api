@@ -13,11 +13,11 @@
         }
     ],
     "require": {
-        "lorisleiva/laravel-actions": "^2.8",
-        "laravel/pint": "^1.15"
+        "lorisleiva/laravel-actions": "^2.8"
     },
     "require-dev": {
-        "orchestra/testbench": "^9.0"
+        "orchestra/testbench": "^9.0",
+        "laravel/pint": "^1.15"
     },
     "extra": {
         "laravel": {

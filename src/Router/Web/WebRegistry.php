@@ -9,7 +9,7 @@ namespace Gildsmith\HubApi\Router\Web;
  */
 class WebRegistry
 {
-    /** @var array Stores the registered web applications */
+    /** @var WebApplication[] Stores the registered web applications */
     protected static array $registry = [];
 
     /** @var WebApplication The default template used as a fallback */
@@ -63,6 +63,11 @@ class WebRegistry
     public static function fallback(): WebApplication
     {
         return self::$fallbackApplication;
+    }
+
+    public static function getRegistry(): array
+    {
+        return self::$registry;
     }
 
     public static function setFallback(WebApplication $webApplication): void
