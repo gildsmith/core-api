@@ -52,6 +52,8 @@ class HubServiceProvider extends ServiceProvider
 
         $this->mergeConfigFrom($packageBasePath.'/config/gildsmith.php', 'gildsmith');
         $this->publishes([$packageBasePath.'/config/gildsmith.php' => config_path('gildsmith.php')], 'config');
+
+        include_once base_path('bootstrap/gildsmith.php');
     }
 
     /**

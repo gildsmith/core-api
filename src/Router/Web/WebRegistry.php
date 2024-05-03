@@ -25,13 +25,13 @@ class WebRegistry
         self::initConfig();
     }
 
-    /** TODO */
+    /** TODO might delete later */
     protected static function initFallback(): void
     {
         if (! empty(self::$fallbackApplication)) {
             return;
         }
-        $fallbackTemplate = config('gildsmith.default', 'gildsmith::template');
+        $fallbackTemplate = config('gildsmith.default', 'gildsmith.template');
         self::$fallbackApplication = new WebApplication('storefront', '', $fallbackTemplate);
     }
 

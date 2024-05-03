@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 class WebRouter
 {
     /**
-     * Handles web routes by rendering the appropriateweb application template.
+     * Handles web routes by rendering the appropriate web application template.
      */
     public function __invoke(string $route): Response
     {
