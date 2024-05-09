@@ -14,7 +14,7 @@ class WebRouter
     {
         $webapp = WebRegistry::get($route);
 
-        return empty($webapp->restricted) || in_array($request->user()->role->name, $webapp->restricted)
+        return empty($webapp->restricted) || in_array($request->user()?->role->name, $webapp->restricted)
             ? response()->view($webapp->template, compact('webapp'))
             : response()->redirectTo('/');
     }
