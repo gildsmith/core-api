@@ -38,7 +38,7 @@ class ReadApplications extends Action
     {
         WebRegistry::init();
 
-        return WebRegistry::getRegistry();
+        return [...WebRegistry::getRegistry(), WebRegistry::fallback()];
     }
 
     /**
@@ -54,7 +54,7 @@ class ReadApplications extends Action
             });
 
             $response = count($filteredApps) > 0
-                ? $filteredApps[0]
+                ? array_shift($filteredApps)
                 : new stdClass();
         }
 

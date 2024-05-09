@@ -9,6 +9,7 @@ use Gildsmith\HubApi\Router\Api\FeatureRoutingRegistry;
 use Gildsmith\HubApi\Router\Web\WebApplication;
 use Gildsmith\HubApi\Router\Web\WebRegistry;
 use Gildsmith\HubApi\Router\Web\WebRouter;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 class Gildsmith
@@ -40,8 +41,8 @@ class Gildsmith
      */
     public function web(): void
     {
-        Route::fallback(function (string $route = '/') {
-            return (new WebRouter())($route);
+        Route::fallback(function (Request $request, string $route = '/') {
+            return (new WebRouter())($request, $route);
         });
     }
 
