@@ -7,6 +7,7 @@ use Gildsmith\HubApi\Actions\ReadFeatures;
 use Gildsmith\HubApi\Gildsmith;
 use Gildsmith\HubApi\Http\Middleware\ExpectsFeature;
 use Gildsmith\HubApi\Http\Middleware\ForceJsonResponse;
+use Gildsmith\HubApi\Http\Middleware\SetLanguage;
 use Gildsmith\HubApi\Router\Web\WebRegistry;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Http\Kernel;
@@ -50,8 +51,9 @@ class HubServiceProvider extends ServiceProvider
     {
         $packageBasePath = dirname(__DIR__, 2);
 
-        $this->mergeConfigFrom($packageBasePath.'/config/gildsmith.php', 'gildsmith');
-        $this->publishes([$packageBasePath.'/config/gildsmith.php' => config_path('gildsmith.php')], 'config');
+        $this->loadMigrationsFrom($packageBasePath . '/database/migrations');
+        $this->mergeConfigFrom($packageBasePath . '/config/gildsmith.php', 'gildsmith');
+        $this->publishes([$packageBasePath . '/config/gildsmith.php' => config_path('gildsmith.php')], 'config');
 
         include_once base_path('bootstrap/gildsmith.php');
     }
@@ -63,6 +65,7 @@ class HubServiceProvider extends ServiceProvider
      */
     public function bootMiddlewares(Kernel $kernel): void
     {
+        $kernel->prependMiddlewareToGroup('api', SetLanguage::class);
         $kernel->prependMiddlewareToGroup('api', ForceJsonResponse::class);
         $this->app->make(Router::class)->aliasMiddleware('feature', ExpectsFeature::class);
     }
@@ -73,7 +76,7 @@ class HubServiceProvider extends ServiceProvider
      */
     public function defineVersion(): void
     {
-        if (! defined('GILDSMITH_VERSION')) {
+        if (!defined('GILDSMITH_VERSION')) {
             define('GILDSMITH_VERSION', Gildsmith::VERSION);
         }
     }
