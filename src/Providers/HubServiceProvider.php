@@ -12,7 +12,6 @@ use Gildsmith\HubApi\Router\Web\WebRegistry;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class HubServiceProvider extends ServiceProvider
@@ -40,6 +39,7 @@ class HubServiceProvider extends ServiceProvider
         $this->bootMiddlewares($kernel);
         $this->defineVersion();
         $this->bootRoutes();
+        $this->bootApiFeatures();
         $this->bootCommands();
     }
 
@@ -88,9 +88,21 @@ class HubServiceProvider extends ServiceProvider
     public function bootRoutes(): void
     {
         WebRegistry::init();
-        Route::get('_gildsmith/features', ReadFeatures::class);
-        Route::get('_gildsmith/apps', ReadApplications::class);
-        Route::get('_gildsmith/apps/{app}', ReadApplications::class);
+
+        require dirname(__DIR__, 2) . '/routes/_gildsmith.php';
+    }
+
+    /**
+     * Enables specific API features and registers
+     * their corresponding endpoints.
+     */
+    protected function bootApiFeatures(): void
+    {
+        \Gildsmith\HubApi\Facades\Gildsmith::registerFeatures('channels');
+
+        \Gildsmith\HubApi\Facades\Gildsmith::registerFeatureRoutes('channels', function () {
+            require dirname(__DIR__, 2) . '/routes/channels.php';
+        });
     }
 
     /**
