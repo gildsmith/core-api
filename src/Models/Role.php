@@ -5,6 +5,10 @@ namespace Gildsmith\HubApi\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
+/**
+ * @property integer id
+ * @property string name
+ */
 class Role extends Model
 {
     protected $fillable = ['name'];
