@@ -8,11 +8,15 @@ use Gildsmith\HubApi\Gildsmith;
 use Gildsmith\HubApi\Http\Middleware\ExpectsFeature;
 use Gildsmith\HubApi\Http\Middleware\ForceJsonResponse;
 use Gildsmith\HubApi\Http\Middleware\SetLanguage;
+use Gildsmith\HubApi\Models\User;
 use Gildsmith\HubApi\Router\Web\WebRegistry;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 class HubServiceProvider extends ServiceProvider
 {
@@ -41,6 +45,7 @@ class HubServiceProvider extends ServiceProvider
         $this->bootRoutes();
         $this->bootApiFeatures();
         $this->bootCommands();
+        $this->bootBroadcastChannels();
     }
 
     /**
@@ -51,9 +56,9 @@ class HubServiceProvider extends ServiceProvider
     {
         $packageBasePath = dirname(__DIR__, 2);
 
-        $this->loadMigrationsFrom($packageBasePath . '/database/migrations');
-        $this->mergeConfigFrom($packageBasePath . '/config/gildsmith.php', 'gildsmith');
-        $this->publishes([$packageBasePath . '/config/gildsmith.php' => config_path('gildsmith.php')], 'config');
+        $this->loadMigrationsFrom($packageBasePath.'/database/migrations');
+        $this->mergeConfigFrom($packageBasePath.'/config/gildsmith.php', 'gildsmith');
+        $this->publishes([$packageBasePath.'/config/gildsmith.php' => config_path('gildsmith.php')], 'config');
 
         include_once base_path('bootstrap/gildsmith.php');
     }
@@ -76,7 +81,7 @@ class HubServiceProvider extends ServiceProvider
      */
     public function defineVersion(): void
     {
-        if (!defined('GILDSMITH_VERSION')) {
+        if (! defined('GILDSMITH_VERSION')) {
             define('GILDSMITH_VERSION', Gildsmith::VERSION);
         }
     }
@@ -89,7 +94,9 @@ class HubServiceProvider extends ServiceProvider
     {
         WebRegistry::init();
 
-        require dirname(__DIR__, 2) . '/routes/_gildsmith.php';
+        Route::middleware(EnsureFrontendRequestsAreStateful::class)->group(function () {
+            require dirname(__DIR__, 2).'/routes/_gildsmith.php';
+        });
     }
 
     /**
@@ -101,7 +108,7 @@ class HubServiceProvider extends ServiceProvider
         \Gildsmith\HubApi\Facades\Gildsmith::registerFeatures('channels');
 
         \Gildsmith\HubApi\Facades\Gildsmith::registerFeatureRoutes('channels', function () {
-            require dirname(__DIR__, 2) . '/routes/channels.php';
+            require dirname(__DIR__, 2).'/routes/channels.php';
         });
     }
 
@@ -114,5 +121,12 @@ class HubServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands($this->commands);
         }
+    }
+
+    public function bootBroadcastChannels(): void
+    {
+        Broadcast::channel('gildsmith.dashboard.channels', function (User $user) {
+            return $user->role->name === 'admin';
+        });
     }
 }

@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**
- * @property integer $id
+ * @property int $id
  * @property string $code
- * @property integer $decimal
+ * @property int $decimal
  */
 class Currency extends Model
 {

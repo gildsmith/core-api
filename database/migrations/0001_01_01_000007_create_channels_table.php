@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -13,11 +14,11 @@ return new class extends Migration {
         Schema::create('channels', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->softDeletes();
+            $table->string('description')->nullable();
+            $table->foreignId('default_currency_id')->references('id')->on('currencies');
+            $table->foreignId('default_language_id')->references('id')->on('languages');
+            $table->boolean('maintenance')->default(false);
         });
-
-        // TODO create default channel
-        // Role::create(['name' => 'user']);
     }
 
     /**

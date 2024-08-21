@@ -1,16 +1,17 @@
 <?php
 
+use Gildsmith\HubApi\Models\Channel;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        //
+        $channel = Channel::defaultBlueprint();
+        $channel->save();
     }
 
     /**
@@ -18,6 +19,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        //
+        Channel::find(1)?->delete();
     }
 };

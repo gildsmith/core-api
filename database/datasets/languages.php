@@ -183,5 +183,5 @@ return [
     ['code' => 'yo'],
     ['code' => 'za'],
     ['code' => 'zh'],
-    ['code' => 'zu']
+    ['code' => 'zu'],
 ];
