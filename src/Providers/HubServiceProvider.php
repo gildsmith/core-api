@@ -32,7 +32,7 @@ class HubServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind('gildsmith', function () {
-            return new Gildsmith();
+            return new Gildsmith;
         });
     }
 

@@ -34,7 +34,7 @@ class ChannelCreate extends Action
 
     public function handle(string $name): Channel
     {
-        $channel = new Channel();
+        $channel = new Channel;
         $channel->name = $name;
         $channel->save();
         $channel->load($channel->with);
