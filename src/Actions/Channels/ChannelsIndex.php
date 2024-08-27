@@ -15,7 +15,7 @@ class ChannelsIndex extends Action
 
     public function authorize(Request $request): bool
     {
-        return (bool) $request->user() && $request->user()->role->name === 'admin';
+        return $request->user() && $request->user()->role->name === 'admin';
     }
 
     public function asController(Request $request): JsonResponse

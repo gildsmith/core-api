@@ -16,7 +16,9 @@ use Lorisleiva\Actions\Concerns\AsController;
  */
 class ReadFeatures extends Action
 {
-    use AsAction, AsCommand, AsController;
+    use AsAction;
+    use AsCommand;
+    use AsController;
 
     public $commandSignature = 'gildsmith:features';
 

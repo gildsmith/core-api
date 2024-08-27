@@ -13,7 +13,9 @@ use Lorisleiva\Actions\Concerns\AsController;
 
 class ReadApplications extends Action
 {
-    use AsAction, AsCommand, AsController;
+    use AsAction;
+    use AsCommand;
+    use AsController;
 
     public $commandSignature = 'gildsmith:apps';
 

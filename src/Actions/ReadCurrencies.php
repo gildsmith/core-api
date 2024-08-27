@@ -12,7 +12,7 @@ class ReadCurrencies extends Action
 {
     public function authorize(Request $request): bool
     {
-        return (bool) $request->user() && $request->user()->role->name === 'admin';
+        return $request->user() && $request->user()->role->name === 'admin';
     }
 
     public function handle(): Collection

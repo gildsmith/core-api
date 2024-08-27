@@ -15,7 +15,9 @@ use Laravel\Sanctum\HasApiTokens;
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
 
     protected $fillable = [
         'email',
@@ -33,16 +35,16 @@ class User extends Authenticatable
 
     protected $with = ['role'];
 
+    public function role(): Relation
+    {
+        return $this->belongsTo(Role::class);
+    }
+
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public function role(): Relation
-    {
-        return $this->belongsTo(Role::class);
     }
 }

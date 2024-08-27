@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  */
 class Role extends Model
 {
-    protected $fillable = ['name'];
-
     public $timestamps = false;
+
+    protected $fillable = ['name'];
 
     public function users(): Relation
     {
