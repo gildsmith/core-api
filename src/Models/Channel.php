@@ -68,7 +68,7 @@ class Channel extends Model
 
     public static function defaultBlueprint(): self
     {
-        $channel = new Channel();
+        $channel = new Channel;
         $channel->id = 1;
         $channel->name = 'Default channel';
         $channel->description = 'This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.';

@@ -42,7 +42,7 @@ class Gildsmith
     public function web(): void
     {
         Route::fallback(function (Request $request, string $route = '/') {
-            return (new WebRouter())($request, $route);
+            return (new WebRouter)($request, $route);
         });
     }
 
