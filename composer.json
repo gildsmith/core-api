@@ -19,7 +19,8 @@
     },
     "require-dev": {
         "orchestra/testbench": "^9.0",
-        "laravel/pint": "^1.15"
+        "laravel/pint": "^1.15",
+        "pestphp/pest": "^2.35"
     },
     "extra": {
         "laravel": {
@@ -29,6 +30,11 @@
             "aliases": {
                 "Gildsmith": "Gildsmith\\HubApi\\Facades\\Gildsmith"
             }
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
         }
     }
 }
