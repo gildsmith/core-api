@@ -105,9 +105,7 @@ class HubServiceProvider extends ServiceProvider
      */
     protected function bootApiFeatures(): void
     {
-        \Gildsmith\HubApi\Facades\Gildsmith::registerFeatures('channels');
-
-        \Gildsmith\HubApi\Facades\Gildsmith::registerFeatureRoutes('channels', function () {
+        \Gildsmith\HubApi\Facades\Gildsmith::registerFeature('channels', function () {
             require dirname(__DIR__, 2).'/routes/channels.php';
         });
     }

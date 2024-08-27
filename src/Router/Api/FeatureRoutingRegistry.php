@@ -3,6 +3,8 @@
 namespace Gildsmith\HubApi\Router\Api;
 
 use Illuminate\Support\Facades\Route;
+use Laravel\Pennant\Feature;
+use Laravel\Pennant\Middleware\EnsureFeaturesAreActive;
 
 /**
  * Manages feature routes and registers them with feature-control middleware.
@@ -21,7 +23,8 @@ class FeatureRoutingRegistry
     public static function trigger(): void
     {
         foreach (self::$registry as $feature => $callables) {
-            Route::middleware("feature:$feature")->prefix($feature)->group($callables);
+            Feature::define($feature, fn () => true);
+            Route::middleware(EnsureFeaturesAreActive::using($feature))->prefix($feature)->group($callables);
         }
     }
 
@@ -30,12 +33,6 @@ class FeatureRoutingRegistry
      */
     public static function add(string $feature, callable $callable): bool
     {
-        $feature = strtolower($feature);
-
-        if (! ctype_alnum($feature)) {
-            return false;
-        }
-
         if (! in_array($feature, self::$registry)) {
             self::$registry[$feature] = [];
         }

@@ -22,7 +22,8 @@ readonly class WebApplication
         public string $template,
         public array $params = [],
         public array $restricted = [],
-    ) {}
+    ) {
+    }
 
     /**
      * Static factory method for flexible WebApplication creation.
