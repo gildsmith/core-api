@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-/** @noinspection PhpUnused */
-
 namespace Gildsmith\HubApi;
 
 use Gildsmith\HubApi\Router\Api\ApiFeatureRegistry;
+use Gildsmith\HubApi\Router\Api\ApiFeatureRoutes;
 use Gildsmith\HubApi\Router\Web\WebApplication;
 use Gildsmith\HubApi\Router\Web\WebRegistry;
 use Illuminate\Http\Request;
@@ -14,9 +13,6 @@ use Illuminate\Support\Facades\Route;
 
 class Gildsmith
 {
-    /** @var string The current version of the Gildsmith Hub package */
-    public const string VERSION = '1.0.0-alpha';
-
     /**
      * Directs all requests with the '/api' prefix
      * to the ApiRouter for JSON-focused handling.
@@ -50,29 +46,21 @@ class Gildsmith
         });
     }
 
-    /**
-     * Adds a web application to the registry.
-     *
-     * @param  WebApplication  $webApplication  The application to be registered.
-     */
-    public function registerWebApplication(WebApplication $webApplication): void
+    public function app(?string $name = null): WebApplication
     {
-        WebRegistry::add($webApplication);
+        $applicationObject = new WebApplication($name);
+        $name === null
+            ? WebRegistry::setFallback($applicationObject)
+            : WebRegistry::add($applicationObject);
+
+        return $applicationObject;
     }
 
-    public function registerFallbackWebApplication(WebApplication $webApplication): void
+    public function feature(string $featureName): ApiFeatureRoutes
     {
-        WebRegistry::setFallback($webApplication);
-    }
+        $featureObject = new ApiFeatureRoutes();
+        ApiFeatureRegistry::add($featureName, $featureObject);
 
-    /**
-     * Registers routes for a specific feature.
-     *
-     * @param  string  $feature  The feature name.
-     * @param  callable  $callable  A closure containing route definitions.
-     */
-    public function registerApiFeature(string $feature, callable $callable): void
-    {
-        ApiFeatureRegistry::add($feature, $callable);
+        return $featureObject;
     }
 }

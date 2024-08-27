@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Gildsmith\HubApi\Providers;
 
 use Gildsmith\HubApi\Actions\ReadApplications;
-use Gildsmith\HubApi\Actions\ReadFeatures;
-use Gildsmith\HubApi\Gildsmith;
+use Gildsmith\HubApi\Facades\Gildsmith;
 use Gildsmith\HubApi\Http\Middleware\ForceJsonResponse;
 use Gildsmith\HubApi\Http\Middleware\SetLanguage;
 use Gildsmith\HubApi\Models\User;
@@ -25,13 +24,12 @@ class HubServiceProvider extends ServiceProvider
      * that can be used as artisan commands
      */
     protected array $commands = [
-        ReadFeatures::class,
         ReadApplications::class,
     ];
 
     public function register(): void
     {
-        $this->app->bind('gildsmith', fn () => new Gildsmith);
+        $this->app->bind('gildsmith', fn () => new \Gildsmith\HubApi\Gildsmith());
     }
 
     /**
@@ -41,7 +39,6 @@ class HubServiceProvider extends ServiceProvider
     {
         $this->bootResources();
         $this->bootMiddlewares($kernel);
-        $this->defineVersion();
         $this->bootRoutes();
         $this->bootApiFeatures();
         $this->bootCommands();
@@ -69,17 +66,6 @@ class HubServiceProvider extends ServiceProvider
     }
 
     /**
-     * Defines a 'GILDSMITH_VERSION' constant for
-     * easy access throughout the application.
-     */
-    public function defineVersion(): void
-    {
-        if (! defined('GILDSMITH_VERSION')) {
-            define('GILDSMITH_VERSION', Gildsmith::VERSION);
-        }
-    }
-
-    /**
      * Initializes web routes handling and
      * defines a route for feature listing.
      */
@@ -98,9 +84,9 @@ class HubServiceProvider extends ServiceProvider
      */
     protected function bootApiFeatures(): void
     {
-        \Gildsmith\HubApi\Facades\Gildsmith::registerApiFeature('channels', function () {
-            require dirname(__DIR__, 2).'/routes/channels.php';
-        });
+        Gildsmith::feature('channels')
+            ->file(dirname(__DIR__, 2).'/routes/channels.php')
+            ->flagged();
     }
 
     /**

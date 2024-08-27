@@ -23,8 +23,7 @@ class WebRegistry
      */
     public static function init(): void
     {
-        self::$fallbackApplication = self::$fallbackApplication
-            ?? new WebApplication('storefront', '', config('gildsmith.default', 'gildsmith.template'));
+        self::$fallbackApplication = self::$fallbackApplication ?? new WebApplication();
     }
 
     /**

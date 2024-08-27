@@ -9,20 +9,50 @@ namespace Gildsmith\HubApi\Router\Web;
  * the Gildsmith system. Stores essential information for rendering
  * and routing the application.
  */
-readonly class WebApplication
+class WebApplication
 {
-    /**
-     * @param  string  $identifier  A unique name to identify the web application.
-     * @param  string  $route  The top-level URL path where the application is accessible.
-     * @param  string  $template  The name of the template file used to render the application's entry point.
-     * @param  array  $params  Optional custom data to be passed to the template during rendering.
-     * @param  array  $restricted  Allow only users with certain roles to access the app.
-     */
-    public function __construct(
-        public string $identifier,
-        public string $route,
-        public string $template,
-        public array $params = [],
-        public array $restricted = [],
-    ) {}
+    // todo custom control over __get
+    public string $identifier;
+
+    public string $template = 'gildsmith.template';
+
+    public string $route = '';
+
+    public array $restricted = [];
+
+    public array $params = [];
+
+    public function __construct(?string $identifier = null)
+    {
+        $this->identifier = $identifier ?? 'storefront';
+    }
+
+    public function template(string $template): self
+    {
+        $this->template = $template;
+
+        return $this;
+    }
+
+    public function route(string $route): self
+    {
+        $this->route = $route;
+
+        return $this;
+    }
+
+    public function restricted(string ...$role): self
+    {
+        array_push($this->restricted, ...$role);
+
+        return $this;
+    }
+
+    // todo expects exactly one argument
+    public function param(string $name, mixed $argument): self
+    {
+        $this->params[$name] = $argument;
+
+        return $this;
+    }
 }
