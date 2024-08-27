@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Gildsmith\HubApi\Actions;
 
 use Gildsmith\HubApi\Models\Currency;

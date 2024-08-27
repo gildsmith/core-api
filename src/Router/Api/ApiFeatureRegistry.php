@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Gildsmith\HubApi\Router\Api;
 
 use Illuminate\Support\Facades\Route;
@@ -11,7 +13,7 @@ use Laravel\Pennant\Middleware\EnsureFeaturesAreActive;
  * This class enables organizing API routes based on features and applying
  * selective access control using the 'feature' middleware.
  */
-class FeatureRoutingRegistry
+class ApiFeatureRegistry
 {
     protected static array $registry = [];
 

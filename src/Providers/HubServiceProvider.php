@@ -1,18 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Gildsmith\HubApi\Providers;
 
 use Gildsmith\HubApi\Actions\ReadApplications;
 use Gildsmith\HubApi\Actions\ReadFeatures;
 use Gildsmith\HubApi\Gildsmith;
-use Gildsmith\HubApi\Http\Middleware\ExpectsFeature;
 use Gildsmith\HubApi\Http\Middleware\ForceJsonResponse;
 use Gildsmith\HubApi\Http\Middleware\SetLanguage;
 use Gildsmith\HubApi\Models\User;
 use Gildsmith\HubApi\Router\Web\WebRegistry;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Http\Kernel;
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -31,12 +31,12 @@ class HubServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->app->bind('gildsmith', function () {
-            return new Gildsmith;
-        });
+        $this->app->bind('gildsmith', fn () => new Gildsmith());
     }
 
-    /** @throws BindingResolutionException */
+    /**
+     * @throws BindingResolutionException
+     */
     public function boot(Kernel $kernel): void
     {
         $this->bootResources();
@@ -54,25 +54,18 @@ class HubServiceProvider extends ServiceProvider
      */
     public function bootResources(): void
     {
-        $packageBasePath = dirname(__DIR__, 2);
-
-        $this->loadMigrationsFrom($packageBasePath.'/database/migrations');
-        $this->mergeConfigFrom($packageBasePath.'/config/gildsmith.php', 'gildsmith');
-        $this->publishes([$packageBasePath.'/config/gildsmith.php' => config_path('gildsmith.php')], 'config');
+        $this->loadMigrationsFrom(dirname(__DIR__, 2).'/database/migrations');
 
         include_once base_path('bootstrap/gildsmith.php');
     }
 
     /**
      * Register middleware and configure middleware aliases.
-     *
-     * @throws BindingResolutionException
      */
     public function bootMiddlewares(Kernel $kernel): void
     {
         $kernel->prependMiddlewareToGroup('api', SetLanguage::class);
         $kernel->prependMiddlewareToGroup('api', ForceJsonResponse::class);
-        $this->app->make(Router::class)->aliasMiddleware('feature', ExpectsFeature::class);
     }
 
     /**
@@ -105,7 +98,7 @@ class HubServiceProvider extends ServiceProvider
      */
     protected function bootApiFeatures(): void
     {
-        \Gildsmith\HubApi\Facades\Gildsmith::registerFeature('channels', function () {
+        \Gildsmith\HubApi\Facades\Gildsmith::registerApiFeature('channels', function () {
             require dirname(__DIR__, 2).'/routes/channels.php';
         });
     }

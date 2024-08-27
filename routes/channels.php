@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Gildsmith\HubApi\Actions\Channels\ChannelCreate;
 use Gildsmith\HubApi\Actions\Channels\ChannelDelete;
 use Gildsmith\HubApi\Actions\Channels\ChannelsIndex;

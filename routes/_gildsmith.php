@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Gildsmith\HubApi\Actions\ReadApplications;
 use Gildsmith\HubApi\Actions\ReadCurrencies;
 use Gildsmith\HubApi\Actions\ReadLanguages;

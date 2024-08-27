@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Gildsmith\HubApi\Router\Web;
 
 /**
@@ -21,27 +23,8 @@ class WebRegistry
      */
     public static function init(): void
     {
-        self::initFallback();
-        self::initConfig();
-    }
-
-    /** TODO might delete later */
-    protected static function initFallback(): void
-    {
-        if (! empty(self::$fallbackApplication)) {
-            return;
-        }
-        $fallbackTemplate = config('gildsmith.default', 'gildsmith.template');
-        self::$fallbackApplication = new WebApplication('storefront', '', $fallbackTemplate);
-    }
-
-    /** TODO */
-    protected static function initConfig(): void
-    {
-        $configuredApps = config('gildsmith.webapps', []);
-        array_walk($configuredApps, function ($value, $key) {
-            self::$registry[] = WebApplication::make($key, $value);
-        });
+        self::$fallbackApplication = self::$fallbackApplication
+            ?? new WebApplication('storefront', '', config('gildsmith.default', 'gildsmith.template'));
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     ['code' => 'aed', 'decimal' => 2],
     ['code' => 'afn', 'decimal' => 2],

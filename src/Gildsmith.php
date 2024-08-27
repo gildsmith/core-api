@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 /** @noinspection PhpUnused */
 
 namespace Gildsmith\HubApi;
 
-use Gildsmith\HubApi\Router\Api\FeatureRoutingRegistry;
+use Gildsmith\HubApi\Router\Api\ApiFeatureRegistry;
 use Gildsmith\HubApi\Router\Web\WebApplication;
 use Gildsmith\HubApi\Router\Web\WebRegistry;
-use Gildsmith\HubApi\Router\Web\WebRouter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,7 @@ class Gildsmith
      */
     public function api(): void
     {
-        FeatureRoutingRegistry::trigger();
+        ApiFeatureRegistry::trigger();
 
         $callback = fn () => response(null, 404);
 
@@ -41,7 +42,11 @@ class Gildsmith
     public function web(): void
     {
         Route::fallback(function (Request $request, string $route = '/') {
-            return (new WebRouter())($request, $route);
+            $webapp = WebRegistry::get($route);
+
+            return empty($webapp->restricted) || in_array($request->user()?->role->name, $webapp->restricted)
+                ? response()->view($webapp->template, compact('webapp'))
+                : response()->redirectTo('/');
         });
     }
 
@@ -66,8 +71,8 @@ class Gildsmith
      * @param  string  $feature  The feature name.
      * @param  callable  $callable  A closure containing route definitions.
      */
-    public function registerFeature(string $feature, callable $callable): void
+    public function registerApiFeature(string $feature, callable $callable): void
     {
-        FeatureRoutingRegistry::add($feature, $callable);
+        ApiFeatureRegistry::add($feature, $callable);
     }
 }
