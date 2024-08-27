@@ -29,7 +29,7 @@ class HubServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->app->bind('gildsmith', fn () => new \Gildsmith\HubApi\Gildsmith());
+        $this->app->bind('gildsmith', fn () => new \Gildsmith\HubApi\Gildsmith);
     }
 
     /**

@@ -58,7 +58,7 @@ class Gildsmith
 
     public function feature(string $featureName): ApiFeatureRoutes
     {
-        $featureObject = new ApiFeatureRoutes();
+        $featureObject = new ApiFeatureRoutes;
         ApiFeatureRegistry::add($featureName, $featureObject);
 
         return $featureObject;
