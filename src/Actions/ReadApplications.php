@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Gildsmith\HubApi\Actions;
 
-use Gildsmith\HubApi\Router\Web\WebApplication;
+use Gildsmith\HubApi\Router\Web\AppBuilder;
 use Gildsmith\HubApi\Router\Web\WebRegistry;
 use Illuminate\Console\Command;
 use Lorisleiva\Actions\Action;
@@ -43,7 +43,7 @@ class ReadApplications extends Action
     {
         WebRegistry::init();
 
-        /** @var WebApplication[] $apps */
+        /** @var AppBuilder[] $apps */
         $apps = [...WebRegistry::getRegistry(), WebRegistry::fallback()];
 
         // Filter applications by role

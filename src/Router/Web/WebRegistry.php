@@ -11,11 +11,11 @@ namespace Gildsmith\HubApi\Router\Web;
  */
 class WebRegistry
 {
-    /** @var WebApplication[] Stores the registered web applications */
+    /** @var AppBuilder[] Stores the registered web applications */
     protected static array $registry = [];
 
-    /** @var WebApplication The default template used as a fallback */
-    protected static WebApplication $fallbackApplication;
+    /** @var AppBuilder The default template used as a fallback */
+    protected static AppBuilder $fallbackApplication;
 
     /**
      * Initializes the registry by loading web
@@ -23,14 +23,14 @@ class WebRegistry
      */
     public static function init(): void
     {
-        self::$fallbackApplication = self::$fallbackApplication ?? new WebApplication;
+        self::$fallbackApplication = self::$fallbackApplication ?? new AppBuilder;
     }
 
     /**
      * Finds and returns the first web application whose route
      * matches the given route, or the fallback web application.
      */
-    public static function get(string $route): ?WebApplication
+    public static function get(string $route): ?AppBuilder
     {
         $route = strstr($route, '/', true) ?: $route;
         foreach (self::$registry as $app) {
@@ -42,7 +42,7 @@ class WebRegistry
         return self::fallback();
     }
 
-    public static function fallback(): WebApplication
+    public static function fallback(): AppBuilder
     {
         return self::$fallbackApplication;
     }
@@ -52,12 +52,12 @@ class WebRegistry
         return self::$registry;
     }
 
-    public static function setFallback(WebApplication $webApplication): void
+    public static function setFallback(AppBuilder $webApplication): void
     {
         self::$fallbackApplication = $webApplication;
     }
 
-    public static function add(WebApplication $app): void
+    public static function add(AppBuilder $app): void
     {
         self::$registry[] = $app;
     }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Gildsmith\HubApi;
 
-use Gildsmith\HubApi\Router\Api\ApiFeatureRegistry;
-use Gildsmith\HubApi\Router\Api\ApiFeatureRoutes;
-use Gildsmith\HubApi\Router\Web\WebApplication;
+use Gildsmith\HubApi\Router\Api\FeatureRegistry;
+use Gildsmith\HubApi\Router\Api\FeatureBuilder;
+use Gildsmith\HubApi\Router\Web\AppBuilder;
 use Gildsmith\HubApi\Router\Web\WebRegistry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,12 +14,14 @@ use Illuminate\Support\Facades\Route;
 class Gildsmith
 {
     /**
-     * Directs all requests with the '/api' prefix
-     * to the ApiRouter for JSON-focused handling.
+     * TODO refactor pending
+     *
+     * This method should be triggered within `/routes/api.php`
+     * to load all API routes registered via Gildsmith::feature()
      */
     public function api(): void
     {
-        ApiFeatureRegistry::trigger();
+        FeatureRegistry::trigger();
 
         $callback = fn () => response(null, 404);
 
@@ -28,12 +30,14 @@ class Gildsmith
     }
 
     /**
-     * Serves as a catch-all for frontend routes,
-     * forwarding requests to the WebRouter.
+     * TODO refactor pending
      *
-     * This enables your frontend application (powered by Vue
-     * or a similar framework) to manage its own internal
-     * routing for seamless user experience.
+     * This method should be triggered within `/routes/web.php`
+     * to load all API routes registered via Gildsmith::app().
+     *
+     * Its sole purpose is to redirect all unregistered routes
+     * to custom registry. Traffic is then distributed to apps
+     * registered via Gildsmith.
      */
     public function web(): void
     {
@@ -46,9 +50,12 @@ class Gildsmith
         });
     }
 
-    public function app(?string $name = null): WebApplication
+    /**
+     * TODO register web application
+     */
+    public function app(?string $name = null): AppBuilder
     {
-        $applicationObject = new WebApplication($name);
+        $applicationObject = new AppBuilder($name);
         $name === null
             ? WebRegistry::setFallback($applicationObject)
             : WebRegistry::add($applicationObject);
@@ -56,10 +63,13 @@ class Gildsmith
         return $applicationObject;
     }
 
-    public function feature(string $featureName): ApiFeatureRoutes
+    /**
+     * TODO register api feature
+     */
+    public function feature(string $featureName): FeatureBuilder
     {
-        $featureObject = new ApiFeatureRoutes;
-        ApiFeatureRegistry::add($featureName, $featureObject);
+        $featureObject = new FeatureBuilder;
+        FeatureRegistry::add($featureName, $featureObject);
 
         return $featureObject;
     }

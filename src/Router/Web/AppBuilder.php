@@ -9,7 +9,7 @@ namespace Gildsmith\HubApi\Router\Web;
  * the Gildsmith system. Stores essential information for rendering
  * and routing the application.
  */
-class WebApplication
+class AppBuilder
 {
     // todo custom control over __get
     public string $identifier;

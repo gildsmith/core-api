@@ -7,7 +7,7 @@ namespace Gildsmith\HubApi\Router\Api;
 use Illuminate\Support\Facades\Route;
 use Laravel\Pennant\Middleware\EnsureFeaturesAreActive;
 
-class ApiFeatureRoutes
+class FeatureBuilder
 {
     protected array $callable = [];
 

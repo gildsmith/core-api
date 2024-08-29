@@ -1,5 +1,5 @@
 {
-    "name": "gildsmith/hub-api",
+    "name": "gildsmith/core-api",
     "license": "MIT",
     "autoload": {
         "psr-4": {

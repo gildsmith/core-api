@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Pennant\Feature;
 use Laravel\Pennant\Middleware\EnsureFeaturesAreActive;
 
-class ApiFeatureRegistry
+class FeatureRegistry
 {
     protected static array $registry = [];
 
     /** todo adds new feature under given name to the list */
-    public static function add(string $feature, ApiFeatureRoutes $apiFeatureRoutes): void
+    public static function add(string $feature, FeatureBuilder $apiFeatureRoutes): void
     {
         if (! in_array($feature, self::$registry)) {
             self::$registry[$feature] = [];
@@ -33,7 +33,7 @@ class ApiFeatureRegistry
         foreach (self::$registry as $feature => $callables) {
             Feature::define($feature, fn () => true);
             Route::middleware(EnsureFeaturesAreActive::using($feature))->group(function () use ($feature, $callables) {
-                /** @var ApiFeatureRoutes $callable */
+                /** @var FeatureBuilder $callable */
                 foreach ($callables as $callable) {
                     $callable->triggerAll($feature);
                 }
