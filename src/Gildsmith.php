@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Gildsmith\HubApi;
 
-use Gildsmith\HubApi\Router\Api\FeatureRegistry;
 use Gildsmith\HubApi\Router\Api\FeatureBuilder;
+use Gildsmith\HubApi\Router\Api\FeatureRegistry;
 use Gildsmith\HubApi\Router\Web\AppBuilder;
 use Gildsmith\HubApi\Router\Web\WebRegistry;
 use Illuminate\Http\Request;
