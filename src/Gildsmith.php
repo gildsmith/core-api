@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Gildsmith\HubApi;
+namespace Gildsmith\CoreApi;
 
-use Gildsmith\HubApi\Router\Api\FeatureRegistry;
-use Gildsmith\HubApi\Router\Api\FeatureBuilder;
-use Gildsmith\HubApi\Router\Web\AppBuilder;
-use Gildsmith\HubApi\Router\Web\WebRegistry;
+use Gildsmith\CoreApi\Router\Api\FeatureRegistry;
+use Gildsmith\CoreApi\Router\Api\FeatureBuilder;
+use Gildsmith\CoreApi\Router\Web\AppBuilder;
+use Gildsmith\CoreApi\Router\Web\WebRegistry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

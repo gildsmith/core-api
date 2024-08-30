@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Gildsmith\HubApi\Http\Middleware;
+namespace Gildsmith\CoreApi\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

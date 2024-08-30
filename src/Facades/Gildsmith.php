@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Gildsmith\HubApi\Facades;
+namespace Gildsmith\CoreApi\Facades;
 
-use Gildsmith\HubApi\Router\Api\FeatureBuilder;
-use Gildsmith\HubApi\Router\Web\AppBuilder;
+use Gildsmith\CoreApi\Router\Api\FeatureBuilder;
+use Gildsmith\CoreApi\Router\Web\AppBuilder;
 use Illuminate\Support\Facades\Facade;
 
 /**

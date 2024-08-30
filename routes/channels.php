@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-use Gildsmith\HubApi\Actions\Channels\ChannelCreate;
-use Gildsmith\HubApi\Actions\Channels\ChannelDelete;
-use Gildsmith\HubApi\Actions\Channels\ChannelsIndex;
-use Gildsmith\HubApi\Actions\Channels\ChannelUpdate;
-use Gildsmith\HubApi\Actions\Channels\Matrix\AttachCurrency;
-use Gildsmith\HubApi\Actions\Channels\Matrix\AttachLanguage;
-use Gildsmith\HubApi\Actions\Channels\Matrix\DetachCurrency;
-use Gildsmith\HubApi\Actions\Channels\Matrix\DetachLanguage;
+use Gildsmith\CoreApi\Actions\Channels\ChannelCreate;
+use Gildsmith\CoreApi\Actions\Channels\ChannelDelete;
+use Gildsmith\CoreApi\Actions\Channels\ChannelsIndex;
+use Gildsmith\CoreApi\Actions\Channels\ChannelUpdate;
+use Gildsmith\CoreApi\Actions\Channels\Pivot\AttachCurrency;
+use Gildsmith\CoreApi\Actions\Channels\Pivot\AttachLanguage;
+use Gildsmith\CoreApi\Actions\Channels\Pivot\DetachCurrency;
+use Gildsmith\CoreApi\Actions\Channels\Pivot\DetachLanguage;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', ChannelsIndex::class);

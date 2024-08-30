@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Gildsmith\HubApi\Models;
+namespace Gildsmith\CoreApi\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Relation;

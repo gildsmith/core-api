@@ -3,7 +3,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Gildsmith\\HubApi\\": "src/"
+            "Gildsmith\\CoreApi\\": "src/"
         }
     },
     "authors": [
@@ -26,10 +26,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Gildsmith\\HubApi\\Providers\\HubServiceProvider"
+                "Gildsmith\\CoreApi\\Providers\\CoreServiceProvider"
             ],
             "aliases": {
-                "Gildsmith": "Gildsmith\\HubApi\\Facades\\Gildsmith"
+                "Gildsmith": "Gildsmith\\CoreApi\\Facades\\Gildsmith"
             }
         }
     },

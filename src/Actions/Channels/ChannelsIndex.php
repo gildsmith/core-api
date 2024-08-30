@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Gildsmith\HubApi\Actions\Channels;
+namespace Gildsmith\CoreApi\Actions\Channels;
 
-use Gildsmith\HubApi\Models\Channel;
+use Gildsmith\CoreApi\Models\Channel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

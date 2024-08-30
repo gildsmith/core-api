@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Gildsmith\HubApi\Models;
+namespace Gildsmith\CoreApi\Models;
 
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Database\Eloquent\BroadcastsEvents;

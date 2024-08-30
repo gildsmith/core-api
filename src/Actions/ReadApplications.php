@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Gildsmith\HubApi\Actions;
+namespace Gildsmith\CoreApi\Actions;
 
-use Gildsmith\HubApi\Router\Web\AppBuilder;
-use Gildsmith\HubApi\Router\Web\WebRegistry;
+use Gildsmith\CoreApi\Router\Web\AppBuilder;
+use Gildsmith\CoreApi\Router\Web\WebRegistry;
 use Illuminate\Console\Command;
+use Illuminate\Http\JsonResponse;
 use Lorisleiva\Actions\Action;
 use Lorisleiva\Actions\ActionRequest;
 use Lorisleiva\Actions\Concerns\AsAction;
@@ -69,7 +70,7 @@ class ReadApplications extends Action
      * Returns all registered apps available to the user based on their role.
      * Optionally filters by a specific app by its identifier if provided.
      */
-    public function asController(ActionRequest $request, ?string $app = null)
+    public function asController(ActionRequest $request, ?string $app = null): JsonResponse
     {
         $role = $request->user()?->role->name ?? 'guest';
 

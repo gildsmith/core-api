@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Gildsmith\HubApi\Actions\Channels\Matrix;
+namespace Gildsmith\CoreApi\Actions\Channels\Pivot;
 
-use Gildsmith\HubApi\Models\Channel;
-use Gildsmith\HubApi\Models\Currency;
+use Gildsmith\CoreApi\Models\Channel;
+use Gildsmith\CoreApi\Models\Currency;
 use Illuminate\Http\JsonResponse;
 use Lorisleiva\Actions\Action;
 use Lorisleiva\Actions\ActionRequest;
@@ -17,7 +17,7 @@ class AttachCurrency extends Action
 
     public function rules(): array
     {
-        return ['currency' => ['required', 'integer', 'exists:\Gildsmith\HubApi\Models\Currency,id']];
+        return ['currency' => ['required', 'integer', 'exists:\Gildsmith\CoreApi\Models\Currency,id']];
     }
 
     public function asController(ActionRequest $request, Channel $channel): JsonResponse

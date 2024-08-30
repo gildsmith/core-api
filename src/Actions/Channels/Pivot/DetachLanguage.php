@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Gildsmith\HubApi\Actions\Channels\Matrix;
+namespace Gildsmith\CoreApi\Actions\Channels\Pivot;
 
-use Gildsmith\HubApi\Models\Channel;
-use Gildsmith\HubApi\Models\Language;
+use Gildsmith\CoreApi\Models\Channel;
+use Gildsmith\CoreApi\Models\Language;
 use Illuminate\Http\JsonResponse;
 use Lorisleiva\Actions\Action;
 use Lorisleiva\Actions\Concerns\AsController;

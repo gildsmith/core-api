@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Gildsmith\HubApi\Actions;
+namespace Gildsmith\CoreApi\Actions;
 
-use Gildsmith\HubApi\Models\Currency;
+use Gildsmith\CoreApi\Models\Currency;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Lorisleiva\Actions\Action;

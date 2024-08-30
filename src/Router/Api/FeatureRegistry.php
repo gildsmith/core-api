@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Gildsmith\HubApi\Router\Api;
+namespace Gildsmith\CoreApi\Router\Api;
 
 use Illuminate\Support\Facades\Route;
 use Laravel\Pennant\Feature;

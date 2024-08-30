@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Gildsmith\HubApi\Actions\Channels;
+namespace Gildsmith\CoreApi\Actions\Channels;
 
-use Gildsmith\HubApi\Models\Channel;
+use Gildsmith\CoreApi\Models\Channel;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Lorisleiva\Actions\Action;
@@ -24,8 +24,8 @@ class ChannelUpdate extends Action
     {
         return [
             'maintenance' => ['boolean'],
-            'default_currency_id' => ['integer', 'exists:\Gildsmith\HubApi\Models\Currency,id'],
-            'default_language_id' => ['integer', 'exists:\Gildsmith\HubApi\Models\Language,id'],
+            'default_currency_id' => ['integer', 'exists:\Gildsmith\CoreApi\Models\Currency,id'],
+            'default_language_id' => ['integer', 'exists:\Gildsmith\CoreApi\Models\Language,id'],
         ];
     }
 

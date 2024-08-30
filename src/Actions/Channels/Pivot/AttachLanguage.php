@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Gildsmith\HubApi\Actions\Channels\Matrix;
+namespace Gildsmith\CoreApi\Actions\Channels\Pivot;
 
-use Gildsmith\HubApi\Models\Channel;
-use Gildsmith\HubApi\Models\Language;
+use Gildsmith\CoreApi\Models\Channel;
+use Gildsmith\CoreApi\Models\Language;
 use Illuminate\Http\JsonResponse;
 use Lorisleiva\Actions\Action;
 use Lorisleiva\Actions\ActionRequest;
@@ -17,7 +17,7 @@ class AttachLanguage extends Action
 
     public function rules(): array
     {
-        return ['language' => ['required', 'integer', 'exists:\Gildsmith\HubApi\Models\Language,id']];
+        return ['language' => ['required', 'integer', 'exists:\Gildsmith\CoreApi\Models\Language,id']];
     }
 
     public function asController(ActionRequest $request, Channel $channel): JsonResponse

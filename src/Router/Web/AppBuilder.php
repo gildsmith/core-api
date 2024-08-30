@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Gildsmith\HubApi\Router\Web;
+namespace Gildsmith\CoreApi\Router\Web;
 
 /**
  * Represents a web application (encapsulated frontend app) within

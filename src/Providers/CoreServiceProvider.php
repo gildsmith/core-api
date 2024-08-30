@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Gildsmith\HubApi\Providers;
+namespace Gildsmith\CoreApi\Providers;
 
-use Gildsmith\HubApi\Actions\ReadApplications;
-use Gildsmith\HubApi\Facades\Gildsmith;
-use Gildsmith\HubApi\Http\Middleware\ForceJsonResponse;
-use Gildsmith\HubApi\Http\Middleware\SetLanguage;
-use Gildsmith\HubApi\Models\User;
-use Gildsmith\HubApi\Router\Web\WebRegistry;
+use Gildsmith\CoreApi\Actions\ReadApplications;
+use Gildsmith\CoreApi\Facades\Gildsmith;
+use Gildsmith\CoreApi\Http\Middleware\ForceJsonResponse;
+use Gildsmith\CoreApi\Http\Middleware\SetLanguage;
+use Gildsmith\CoreApi\Models\User;
+use Gildsmith\CoreApi\Router\Web\WebRegistry;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Broadcast;
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
-class HubServiceProvider extends ServiceProvider
+class CoreServiceProvider extends ServiceProvider
 {
     /**
      * List of actions provided by this package
@@ -29,7 +29,7 @@ class HubServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->app->bind('gildsmith', fn () => new \Gildsmith\HubApi\Gildsmith);
+        $this->app->bind('gildsmith', fn () => new \Gildsmith\CoreApi\Gildsmith);
     }
 
     /**

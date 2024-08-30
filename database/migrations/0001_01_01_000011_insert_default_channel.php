@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Gildsmith\HubApi\Models\Channel;
+use Gildsmith\CoreApi\Models\Channel;
 use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
