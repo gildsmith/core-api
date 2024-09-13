@@ -15,7 +15,7 @@ class ApiFeatureBuilder
 
     public function __construct(string $name)
     {
-        $this->feature = new ApiFeature();
+        $this->feature = new ApiFeature;
         $this->feature->setName($name);
     }
 
@@ -98,7 +98,7 @@ class ApiFeatureBuilder
          * checks whether the user has one of the specified roles.
          */
         if (is_array($rule)) {
-            $rule = fn(User $user) => in_array($user->role->name, $rule);
+            $rule = fn (User $user) => in_array($user->role->name, $rule);
         }
 
         /*

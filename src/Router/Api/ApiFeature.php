@@ -16,6 +16,7 @@ class ApiFeature
 
     /**
      * @var callable[] An array of callables for route groups.
+     *
      * @see https://laravel.com/docs/11.x/routing#route-groups
      */
     protected array $callables = [];
