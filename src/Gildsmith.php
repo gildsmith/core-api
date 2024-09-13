@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Gildsmith\CoreApi;
 
-use Gildsmith\CoreApi\Router\Api\FeatureRegistry;
-use Gildsmith\CoreApi\Router\Api\FeatureBuilder;
+use Gildsmith\CoreApi\Router\Api\ApiFeatureBuilder;
+use Gildsmith\CoreApi\Router\Api\ApiFeatureRegistry;
 use Gildsmith\CoreApi\Router\Web\AppBuilder;
 use Gildsmith\CoreApi\Router\Web\WebRegistry;
 use Illuminate\Http\Request;
@@ -14,14 +14,15 @@ use Illuminate\Support\Facades\Route;
 class Gildsmith
 {
     /**
-     * TODO refactor pending
+     * Initializes all API routes registered via Gildsmith.
      *
-     * This method should be triggered within `/routes/api.php`
-     * to load all API routes registered via Gildsmith::feature()
+     * This method should be invoked in `/routes/api.php` to set up
+     * API routes. It also defines a default 404 response for any
+     * routes that are not explicitly handled.
      */
     public function api(): void
     {
-        FeatureRegistry::trigger();
+        ApiFeatureRegistry::call();
 
         $callback = fn () => response(null, 404);
 
@@ -30,14 +31,12 @@ class Gildsmith
     }
 
     /**
-     * TODO refactor pending
+     * Initializes web routes registered via Gildsmith.
      *
-     * This method should be triggered within `/routes/web.php`
-     * to load all API routes registered via Gildsmith::app().
-     *
-     * Its sole purpose is to redirect all unregistered routes
-     * to custom registry. Traffic is then distributed to apps
-     * registered via Gildsmith.
+     * This method should be invoked in `/routes/web.php` to set up
+     * web routes. It restricts access based on user roles defined
+     * within each application and redirects unauthorized users to
+     * the homepage.
      */
     public function web(): void
     {
@@ -51,7 +50,12 @@ class Gildsmith
     }
 
     /**
-     * TODO register web application
+     * Registers a web application and returns its builder instance.
+     *
+     * If a name is provided, the application is registered with that
+     * name in the WebRegistry. If no name is provided, the application
+     * is set as the fallback. The fallback application is used when no
+     * matching route or application is found.
      */
     public function app(?string $name = null): AppBuilder
     {
@@ -64,12 +68,15 @@ class Gildsmith
     }
 
     /**
-     * TODO register api feature
+     * Registers an API feature and returns its builder instance.
+     *
+     * Associates a feature with a unique name and provides a builder
+     * for configuring the feature's behavior within the API.
      */
-    public function feature(string $featureName): FeatureBuilder
+    public function feature(string $featureName): ApiFeatureBuilder
     {
-        $featureObject = new FeatureBuilder;
-        FeatureRegistry::add($featureName, $featureObject);
+        $featureObject = new ApiFeatureBuilder($featureName);
+        ApiFeatureRegistry::add($featureName, $featureObject);
 
         return $featureObject;
     }

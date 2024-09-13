@@ -10,18 +10,18 @@ use Gildsmith\CoreApi\Http\Middleware\ForceJsonResponse;
 use Gildsmith\CoreApi\Http\Middleware\SetLanguage;
 use Gildsmith\CoreApi\Models\User;
 use Gildsmith\CoreApi\Router\Web\WebRegistry;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Pennant\Feature;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 class CoreServiceProvider extends ServiceProvider
 {
     /**
      * List of actions provided by this package
-     * that can be used as artisan commands
+     * that can be executed as Artisan commands.
      */
     protected array $commands = [
         ReadApplications::class,
@@ -32,9 +32,6 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->bind('gildsmith', fn () => new \Gildsmith\CoreApi\Gildsmith);
     }
 
-    /**
-     * @throws BindingResolutionException
-     */
     public function boot(Kernel $kernel): void
     {
         $this->bootResources();
@@ -46,19 +43,16 @@ class CoreServiceProvider extends ServiceProvider
     }
 
     /**
-     * Load and merge Gildsmith package resources
+     * Loads and merges Gildsmith package resources
      * and setups publishable resources.
      */
     public function bootResources(): void
     {
-        $this->loadMigrationsFrom(dirname(__DIR__, 2).'/database/migrations');
+        $this->loadMigrationsFrom($this->packagePath('database/migrations'));
 
         include_once base_path('bootstrap/gildsmith.php');
     }
 
-    /**
-     * Register middleware and configure middleware aliases.
-     */
     public function bootMiddlewares(Kernel $kernel): void
     {
         $kernel->prependMiddlewareToGroup('api', SetLanguage::class);
@@ -74,7 +68,7 @@ class CoreServiceProvider extends ServiceProvider
         WebRegistry::init();
 
         Route::middleware(EnsureFrontendRequestsAreStateful::class)->group(function () {
-            require dirname(__DIR__, 2).'/routes/_gildsmith.php';
+            require $this->packagePath('routes/_gildsmith.php');
         });
     }
 
@@ -85,8 +79,8 @@ class CoreServiceProvider extends ServiceProvider
     protected function bootApiFeatures(): void
     {
         Gildsmith::feature('channels')
-            ->file(dirname(__DIR__, 2).'/routes/channels.php')
-            ->flagged();
+            ->file($this->packagePath('routes/channels.php'))
+            ->flagged('admin');
     }
 
     /**
@@ -105,5 +99,13 @@ class CoreServiceProvider extends ServiceProvider
         Broadcast::channel('gildsmith.dashboard.channels', function (User $user) {
             return $user->role->name === 'admin';
         });
+    }
+
+    /**
+     * Helper function to build paths from the package root.
+     */
+    private function packagePath(string $path): string
+    {
+        return dirname(__DIR__, 2).'/'.$path;
     }
 }
