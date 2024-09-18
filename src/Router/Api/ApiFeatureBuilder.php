@@ -15,7 +15,7 @@ class ApiFeatureBuilder
 
     public function __construct(string $name)
     {
-        $this->feature = new ApiFeature();
+        $this->feature = new ApiFeature;
         $this->feature->setName($name);
     }
 
