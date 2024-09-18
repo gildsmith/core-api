@@ -23,7 +23,7 @@ class WebRegistry
      */
     public static function init(): void
     {
-        self::$fallbackApplication = self::$fallbackApplication ?? new WebAppBuilder();
+        self::$fallbackApplication = self::$fallbackApplication ?? new WebAppBuilder;
     }
 
     /**

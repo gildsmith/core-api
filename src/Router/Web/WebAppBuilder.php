@@ -8,6 +8,8 @@ namespace Gildsmith\CoreApi\Router\Web;
  * Represents a web application (encapsulated frontend app) within
  * the Gildsmith system. Stores essential information for rendering
  * and routing the application.
+ *
+ * TODO this should likely be broken into WebApp
  */
 class WebAppBuilder
 {

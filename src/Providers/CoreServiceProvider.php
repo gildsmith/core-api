@@ -14,7 +14,6 @@ use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Pennant\Feature;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 class CoreServiceProvider extends ServiceProvider
