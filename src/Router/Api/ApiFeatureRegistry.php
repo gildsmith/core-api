@@ -14,7 +14,7 @@ class ApiFeatureRegistry
      */
     public static function add(string $feature, ApiFeatureBuilder $apiFeatureRoutes): void
     {
-        if (!in_array($feature, self::$registry)) {
+        if (! in_array($feature, self::$registry)) {
             self::$registry[$feature] = [];
         }
 

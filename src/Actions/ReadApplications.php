@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Gildsmith\CoreApi\Actions;
 
-use Gildsmith\CoreApi\Router\Web\AppBuilder;
 use Gildsmith\CoreApi\Router\Web\WebRegistry;
 use Illuminate\Console\Command;
 use Illuminate\Http\JsonResponse;
@@ -32,29 +31,28 @@ class ReadApplications extends Action
         $apps = $this->handle();
 
         foreach ($apps as $app) {
-            $command->line("- $app->identifier (/$app->route): [$app->template]");
+            $command->line($this->formatAppForCommand(
+                $app->getIdentifier(),
+                $app->getRoute(),
+                $app->getTemplate()
+            ));
         }
     }
 
-    /*
-     * Handles retrieving the registered applications, filtered by role restrictions.
-     * If a role is provided, only returns apps accessible by that role.
-     */
     public function handle(?string $role = null, ?string $app = null): array
     {
         WebRegistry::init();
 
-        /** @var AppBuilder[] $apps */
-        $apps = [...WebRegistry::getRegistry(), WebRegistry::fallback()];
+        $apps = WebRegistry::getFullRegistry();
 
         // Filter applications by role
         $apps = $role === null ? $apps : array_filter($apps, function ($app) use ($role) {
-            return empty($app->restricted) || in_array($role, $app->restricted);
+            return empty($app->getGroups()) || in_array($role, $app->getGroups());
         });
 
         if ($app !== null) {
             $filteredApps = array_filter($apps, function ($registeredApp) use ($app) {
-                return $registeredApp->identifier === $app;
+                return $registeredApp->getIdentifier() === $app;
             });
 
             // Return the specific app or an empty object if not found
@@ -64,6 +62,16 @@ class ReadApplications extends Action
         }
 
         return $apps;
+    }
+
+    /*
+     * Handles retrieving the registered applications, filtered by role restrictions.
+     * If a role is provided, only returns apps accessible by that role.
+     */
+
+    private function formatAppForCommand(string $identifier, string $route, string $template): string
+    {
+        return "- $identifier (/$route): $template";
     }
 
     /**

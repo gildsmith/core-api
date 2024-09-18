@@ -98,7 +98,7 @@ class ApiFeatureBuilder
          * checks whether the user has one of the specified roles.
          */
         if (is_array($rule)) {
-            $rule = fn(User $user) => in_array($user->role->name, $rule);
+            $rule = fn (User $user) => in_array($user->role->name, $rule);
         }
 
         /*

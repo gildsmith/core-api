@@ -6,7 +6,7 @@ namespace Gildsmith\CoreApi;
 
 use Gildsmith\CoreApi\Router\Api\ApiFeatureBuilder;
 use Gildsmith\CoreApi\Router\Api\ApiFeatureRegistry;
-use Gildsmith\CoreApi\Router\Web\AppBuilder;
+use Gildsmith\CoreApi\Router\Web\WebAppBuilder;
 use Gildsmith\CoreApi\Router\Web\WebRegistry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,7 +44,7 @@ class Gildsmith
             $webapp = WebRegistry::get($route);
 
             return empty($webapp->restricted) || in_array($request->user()?->role->name, $webapp->restricted)
-                ? response()->view($webapp->template, compact('webapp'))
+                ? response()->view($webapp->getTemplate(), compact('webapp'))
                 : response()->redirectTo('/');
         });
     }
@@ -57,9 +57,9 @@ class Gildsmith
      * is set as the fallback. The fallback application is used when no
      * matching route or application is found.
      */
-    public function app(?string $name = null): AppBuilder
+    public function app(?string $name = null): WebAppBuilder
     {
-        $applicationObject = new AppBuilder($name);
+        $applicationObject = new WebAppBuilder($name);
         $name === null
             ? WebRegistry::setFallback($applicationObject)
             : WebRegistry::add($applicationObject);

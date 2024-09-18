@@ -11,11 +11,11 @@ namespace Gildsmith\CoreApi\Router\Web;
  */
 class WebRegistry
 {
-    /** @var AppBuilder[] Stores the registered web applications */
+    /** @var WebAppBuilder[] Stores the registered web applications */
     protected static array $registry = [];
 
-    /** @var AppBuilder The default template used as a fallback */
-    protected static AppBuilder $fallbackApplication;
+    /** @var WebAppBuilder The default template used as a fallback */
+    protected static WebAppBuilder $fallbackApplication;
 
     /**
      * Initializes the registry by loading web
@@ -23,18 +23,18 @@ class WebRegistry
      */
     public static function init(): void
     {
-        self::$fallbackApplication = self::$fallbackApplication ?? new AppBuilder;
+        self::$fallbackApplication = self::$fallbackApplication ?? new WebAppBuilder();
     }
 
     /**
      * Finds and returns the first web application whose route
      * matches the given route, or the fallback web application.
      */
-    public static function get(string $route): ?AppBuilder
+    public static function get(string $route): ?WebAppBuilder
     {
         $route = strstr($route, '/', true) ?: $route;
         foreach (self::$registry as $app) {
-            if ($app->route === $route) {
+            if ($app->getRoute() === $route) {
                 return $app;
             }
         }
@@ -42,22 +42,31 @@ class WebRegistry
         return self::fallback();
     }
 
-    public static function fallback(): AppBuilder
+    public static function fallback(): WebAppBuilder
     {
         return self::$fallbackApplication;
     }
 
-    public static function getRegistry(): array
+    public static function registry(): array
     {
         return self::$registry;
     }
 
-    public static function setFallback(AppBuilder $webApplication): void
+    /**
+     * Returns all registered web applications,
+     * including fallback application.
+     */
+    public static function getFullRegistry(): array
+    {
+        return [...self::$registry, self::$fallbackApplication];
+    }
+
+    public static function setFallback(WebAppBuilder $webApplication): void
     {
         self::$fallbackApplication = $webApplication;
     }
 
-    public static function add(AppBuilder $app): void
+    public static function add(WebAppBuilder $app): void
     {
         self::$registry[] = $app;
     }
