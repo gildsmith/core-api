@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Gildsmith\CoreApi\Router\Web\WebAppBuilder;
 use Gildsmith\CoreApi\Router\Web\WebRegistry;
 
@@ -9,7 +11,7 @@ beforeEach(function () {
     $registry->setValue(null, []);
 
     $fallback = $reflectionClass->getProperty('fallbackApplication');
-    $fallback->setValue(null, new WebAppBuilder());
+    $fallback->setValue(null, new WebAppBuilder);
 });
 
 it('initializes with a fallback application', function () {
