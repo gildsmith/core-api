@@ -104,7 +104,7 @@ class WebAppBuilder implements JsonSerializable
             'template' => $this->template,
             'route' => $this->route,
             'groups' => $this->groups,
-            'params' => $this->params
+            'params' => $this->params,
         ];
     }
 }
