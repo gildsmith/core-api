@@ -101,3 +101,66 @@ it('allows setting multiple parameters via param method', function () {
     expect($app->getParams())
         ->toBe(['key1' => 'value1', 'key2' => 'value2']);
 });
+
+it('serializes to JSON with default values', function () {
+    $webApp = new WebAppBuilder();
+
+    $expected = [
+        'identifier' => 'storefront',
+        'template' => 'gildsmith.template',
+        'route' => '',
+        'groups' => [],
+        'params' => []
+    ];
+
+    expect($webApp->jsonSerialize())->toBe($expected);
+});
+
+it('serializes to JSON with custom values', function () {
+    $webApp = (new WebAppBuilder('custom-id'))
+        ->template('custom.template')
+        ->route('/custom-route')
+        ->restrictedTo('admin', 'editor')
+        ->param('foo', 'bar');
+
+    $expected = [
+        'identifier' => 'custom-id',
+        'template' => 'custom.template',
+        'route' => '/custom-route',
+        'groups' => ['admin', 'editor'],
+        'params' => ['foo' => 'bar']
+    ];
+
+    expect($webApp->jsonSerialize())->toBe($expected);
+});
+
+it('serializes with empty groups and params arrays', function () {
+    $webApp = (new WebAppBuilder('custom-id'));
+
+    $expected = [
+        'identifier' => 'custom-id',
+        'template' => 'gildsmith.template',
+        'route' => '',
+        'groups' => [],
+        'params' => []
+    ];
+
+    expect($webApp->jsonSerialize())->toBe($expected);
+});
+
+it('serializes after adding multiple groups and params', function () {
+    $webApp = (new WebAppBuilder())
+        ->restrictedTo('admin', 'user', 'superuser')
+        ->param('key1', 'value1')
+        ->param('key2', 'value2');
+
+    $expected = [
+        'identifier' => 'storefront',
+        'template' => 'gildsmith.template',
+        'route' => '',
+        'groups' => ['admin', 'user', 'superuser'],
+        'params' => ['key1' => 'value1', 'key2' => 'value2']
+    ];
+
+    expect($webApp->jsonSerialize())->toBe($expected);
+});

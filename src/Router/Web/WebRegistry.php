@@ -55,6 +55,8 @@ class WebRegistry
     /**
      * Returns all registered web applications,
      * including fallback application.
+     *
+     * @return WebAppBuilder[]
      */
     public static function getFullRegistry(): array
     {

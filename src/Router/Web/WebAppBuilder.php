@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Gildsmith\CoreApi\Router\Web;
 
+use JsonSerializable;
+
 /**
  * Represents a web application (encapsulated frontend app) within
  * the Gildsmith system. Stores essential information for rendering
@@ -11,7 +13,7 @@ namespace Gildsmith\CoreApi\Router\Web;
  *
  * TODO this should likely be broken into WebApp
  */
-class WebAppBuilder
+class WebAppBuilder implements JsonSerializable
 {
     // Unique identifier for the app instance.
     protected readonly string $identifier;
@@ -93,5 +95,16 @@ class WebAppBuilder
         $this->params[$name] = $argument;
 
         return $this;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'identifier' => $this->identifier,
+            'template' => $this->template,
+            'route' => $this->route,
+            'groups' => $this->groups,
+            'params' => $this->params
+        ];
     }
 }

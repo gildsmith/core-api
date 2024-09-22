@@ -39,6 +39,10 @@ class ReadApplications extends Action
         }
     }
 
+    /**
+     * Handles retrieving the registered applications, filtered by role restrictions.
+     * If a role is provided, only returns apps accessible by that role.
+     */
     public function handle(?string $role = null, ?string $app = null): array
     {
         WebRegistry::init();
@@ -63,11 +67,6 @@ class ReadApplications extends Action
 
         return $apps;
     }
-
-    /*
-     * Handles retrieving the registered applications, filtered by role restrictions.
-     * If a role is provided, only returns apps accessible by that role.
-     */
 
     private function formatAppForCommand(string $identifier, string $route, string $template): string
     {
