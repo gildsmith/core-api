@@ -28,7 +28,7 @@ class CoreServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->app->bind('gildsmith', fn() => new \Gildsmith\CoreApi\Gildsmith());
+        $this->app->bind('gildsmith', fn () => new \Gildsmith\CoreApi\Gildsmith);
     }
 
     public function boot(Kernel $kernel): void
@@ -53,7 +53,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->publishes([$this->packagePath('resources/views') => resource_path('views/vendor/gildsmith')], 'views');
 
         if (file_exists(base_path('bootstrap/gildsmith.php'))) {
-            include_once(base_path('bootstrap/gildsmith.php'));
+            include_once base_path('bootstrap/gildsmith.php');
         }
     }
 
@@ -62,7 +62,7 @@ class CoreServiceProvider extends ServiceProvider
      */
     private function packagePath(string $path): string
     {
-        return dirname(__DIR__, 2) . '/' . $path;
+        return dirname(__DIR__, 2).'/'.$path;
     }
 
     public function bootMiddlewares(Kernel $kernel): void
