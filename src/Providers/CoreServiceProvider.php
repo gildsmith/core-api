@@ -28,7 +28,7 @@ class CoreServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->app->bind('gildsmith', fn () => new \Gildsmith\CoreApi\Gildsmith);
+        $this->app->bind('gildsmith', fn() => new \Gildsmith\CoreApi\Gildsmith());
     }
 
     public function boot(Kernel $kernel): void
@@ -48,8 +48,21 @@ class CoreServiceProvider extends ServiceProvider
     public function bootResources(): void
     {
         $this->loadMigrationsFrom($this->packagePath('database/migrations'));
+        $this->loadViewsFrom($this->packagePath('resources/views'), 'gildsmith');
 
-        include_once base_path('bootstrap/gildsmith.php');
+        $this->publishes([$this->packagePath('resources/views') => resource_path('views/vendor/gildsmith')], 'views');
+
+        if (file_exists(base_path('bootstrap/gildsmith.php'))) {
+            include_once(base_path('bootstrap/gildsmith.php'));
+        }
+    }
+
+    /**
+     * Helper function to build paths from the package root.
+     */
+    private function packagePath(string $path): string
+    {
+        return dirname(__DIR__, 2) . '/' . $path;
     }
 
     public function bootMiddlewares(Kernel $kernel): void
@@ -98,13 +111,5 @@ class CoreServiceProvider extends ServiceProvider
         Broadcast::channel('gildsmith.dashboard.channels', function (User $user) {
             return $user->role->name === 'admin';
         });
-    }
-
-    /**
-     * Helper function to build paths from the package root.
-     */
-    private function packagePath(string $path): string
-    {
-        return dirname(__DIR__, 2).'/'.$path;
     }
 }
