@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
-class CoreServiceProvider extends ServiceProvider
+final class CoreServiceProvider extends ServiceProvider
 {
     /**
      * List of actions provided by this package
@@ -88,7 +88,7 @@ class CoreServiceProvider extends ServiceProvider
      * Enables specific API features and registers
      * their corresponding endpoints.
      */
-    protected function bootApiFeatures(): void
+    public function bootApiFeatures(): void
     {
         Gildsmith::feature('channels')
             ->file($this->packagePath('routes/channels.php'))

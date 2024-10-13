@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Gildsmith\CoreApi\Actions;
 
+use Gildsmith\CoreApi\Router\Web\WebAppBuilder;
 use Gildsmith\CoreApi\Router\Web\WebRegistry;
 use Illuminate\Console\Command;
 use Illuminate\Http\JsonResponse;
@@ -19,9 +20,9 @@ class ReadApplications extends Action
     use AsCommand;
     use AsController;
 
-    public $commandSignature = 'gildsmith:apps';
+    public string $commandSignature = 'gildsmith:apps';
 
-    public $commandDescription = 'Lists enabled Gildsmith web applications';
+    public string $commandDescription = 'Lists enabled Gildsmith web applications';
 
     /** @noinspection PhpUnused */
     public function asCommand(Command $command): void
@@ -50,12 +51,12 @@ class ReadApplications extends Action
         $apps = WebRegistry::getFullRegistry();
 
         // Filter applications by role
-        $apps = $role === null ? $apps : array_filter($apps, function ($app) use ($role) {
+        $apps = $role === null ? $apps : array_filter($apps, function (WebAppBuilder $app) use ($role) {
             return empty($app->getGroups()) || in_array($role, $app->getGroups());
         });
 
         if ($app !== null) {
-            $filteredApps = array_filter($apps, function ($registeredApp) use ($app) {
+            $filteredApps = array_filter($apps, function (WebAppBuilder $registeredApp) use ($app) {
                 return $registeredApp->getIdentifier() === $app;
             });
 
