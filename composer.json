@@ -3,7 +3,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Gildsmith\\CoreApi\\": "src/"
+            "Gildsmith\\CoreApi\\": "src/",
+            "Gildsmith\\CoreApi\\Database\\Factories\\": "database/factories/"
         }
     },
     "authors": [

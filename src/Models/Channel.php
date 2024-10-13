@@ -16,8 +16,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $description
  * @property int $default_currency_id
  * @property int $default_language_id
+ * @property Currency $defaultCurrency
+ * @property Language $defaultLanguage
  * @property bool $maintenace
- * @property bool $locked
  */
 class Channel extends Model
 {

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Lorisleiva\Actions\Action;
 use Lorisleiva\Actions\Concerns\AsController;
 
-class ChannelsIndex extends Action
+class ChannelIndex extends Action
 {
     use AsController;
 
