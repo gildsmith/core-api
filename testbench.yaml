@@ -1,5 +1,4 @@
-providers:
-  - Workbench\App\Providers\WorkbenchServiceProvider
+#providers:
 #  - Gildsmith\CoreApi\Providers\CoreServiceProvider
 
 migrations:
