@@ -7,7 +7,12 @@ use Gildsmith\CoreApi\Models\Channel;
 covers(Channel::class);
 
 /*
- * TODO
+ * Tests related to the default channel (ID 1), focusing on its
+ * preexistence and ability to be automatically recreated after deletion.
+ *
+ * Note: These tests use the 'deleted' event, which may not trigger
+ * in all cases. For example, truncating the entire 'channels' table
+ * with Channel::truncate() will not fire the event.
  */
 describe('default channel', function () {
 
@@ -16,13 +21,12 @@ describe('default channel', function () {
     });
 
     it('is immediately recreated after deletion', function () {
-        Channel::first()->delete();
-        //        $this->assertDatabaseHas('channels', [
-        //            'id' => 1,
-        //        ]);
+        Channel::find(1)->delete();
 
+        $channels = Channel::all();
+        expect($channels)->toHaveCount(1);
+        expect($channels->first()->id)->toBe(1);
     });
-
 });
 
 /*
