@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Gildsmith\CoreApi\Models;
 
+use Gildsmith\CoreApi\Exceptions\DefaultCurrencyDetachException;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,6 +20,15 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class ChannelCurrency extends Pivot
 {
     use BroadcastsEvents;
+
+    protected static function booted(): void
+    {
+        static::deleting(function (ChannelCurrency $instance) {
+            if ($instance->currency_id === $instance->channel->default_currency_id) {
+                throw new DefaultCurrencyDetachException();
+            }
+        });
+    }
 
     public function channel(): BelongsTo
     {

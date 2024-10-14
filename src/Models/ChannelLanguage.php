@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Gildsmith\CoreApi\Models;
 
+use Gildsmith\CoreApi\Exceptions\DefaultLanguageDetachException;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,6 +20,15 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class ChannelLanguage extends Pivot
 {
     use BroadcastsEvents;
+
+    protected static function booted(): void
+    {
+        static::deleting(function (ChannelLanguage $instance) {
+            if ($instance->language_id === $instance->channel->default_language_id) {
+                throw new DefaultLanguageDetachException();
+            }
+        });
+    }
 
     public function channel(): BelongsTo
     {
