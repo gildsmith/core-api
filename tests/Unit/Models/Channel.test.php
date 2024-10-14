@@ -43,7 +43,7 @@ describe('default channel', function () {
 describe('default currency and language', function () {
 
     it('has initial default values', function () {
-        $channel = new Channel();
+        $channel = new Channel;
         $channel->name = 'Test Channel';
         $channel->save();
 
@@ -55,7 +55,7 @@ describe('default currency and language', function () {
     });
 
     it('does not allow default values to be set outside of the channel relations', function () {
-        $channel = new Channel();
+        $channel = new Channel;
         $channel->name = 'Test Channel';
         $channel->save();
 
@@ -69,7 +69,7 @@ describe('default currency and language', function () {
     });
 
     it('allows default values to be changed to values from relations', function () {
-        $channel = new Channel();
+        $channel = new Channel;
         $channel->name = 'Test Channel';
         $channel->save();
 
@@ -87,7 +87,7 @@ describe('default currency and language', function () {
     });
 
     it('does not allow default values to be set to non-existent IDs', function () {
-        $channel = new Channel();
+        $channel = new Channel;
         $channel->name = 'Test Channel';
         $channel->save();
 
@@ -107,7 +107,7 @@ describe('default currency and language', function () {
 describe('channel relations', function () {
 
     it('ensures at least one currency and language is present', function () {
-        $channel = new Channel();
+        $channel = new Channel;
         $channel->name = 'Test Channel';
         $channel->save();
 
