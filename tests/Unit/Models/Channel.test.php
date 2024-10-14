@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Gildsmith\CoreApi\Models\Channel;
 
 covers(Channel::class);
@@ -15,9 +17,9 @@ describe('default channel', function () {
 
     it('is immediately recreated after deletion', function () {
         Channel::first()->delete();
-//        $this->assertDatabaseHas('channels', [
-//            'id' => 1,
-//        ]);
+        //        $this->assertDatabaseHas('channels', [
+        //            'id' => 1,
+        //        ]);
 
     });
 

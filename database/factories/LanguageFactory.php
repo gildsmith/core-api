@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Gildsmith\CoreApi\Database\Factories;
 
 use Gildsmith\CoreApi\Models\Language;

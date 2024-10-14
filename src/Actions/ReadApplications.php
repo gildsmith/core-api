@@ -10,7 +10,6 @@ use Illuminate\Console\Command;
 use Illuminate\Http\JsonResponse;
 use Lorisleiva\Actions\Action;
 use Lorisleiva\Actions\ActionRequest;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Lorisleiva\Actions\Concerns\AsCommand;
 use Lorisleiva\Actions\Concerns\AsController;
 
