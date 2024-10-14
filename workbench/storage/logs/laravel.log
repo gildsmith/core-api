@@ -1,0 +1,490 @@
+[2024-10-13 19:27:18] testing.INFO: Broadcasting [ChannelDeleted] on channels [private-gildsmith.dashboard.channels] with payload:
+{
+    "id": 1,
+    "name": "Default channel",
+    "description": "This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.",
+    "default_currency_id": 154,
+    "default_language_id": 37,
+    "maintenance": 0,
+    "default_currency": {
+        "id": 154,
+        "code": "usd",
+        "decimal": 2
+    },
+    "default_language": {
+        "id": 37,
+        "code": "en"
+    },
+    "currencies": [
+        {
+            "id": 154,
+            "code": "usd",
+            "decimal": 2,
+            "pivot": {
+                "channel_id": 1,
+                "currency_id": 154
+            }
+        }
+    ],
+    "languages": [
+        {
+            "id": 37,
+            "code": "en",
+            "pivot": {
+                "channel_id": 1,
+                "language_id": 37
+            }
+        }
+    ],
+    "socket": null
+}  
+[2024-10-13 19:28:09] testing.INFO: Broadcasting [ChannelDeleted] on channels [private-gildsmith.dashboard.channels] with payload:
+{
+    "id": 1,
+    "name": "Default channel",
+    "description": "This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.",
+    "default_currency_id": 154,
+    "default_language_id": 37,
+    "maintenance": 0,
+    "default_currency": {
+        "id": 154,
+        "code": "usd",
+        "decimal": 2
+    },
+    "default_language": {
+        "id": 37,
+        "code": "en"
+    },
+    "currencies": [
+        {
+            "id": 154,
+            "code": "usd",
+            "decimal": 2,
+            "pivot": {
+                "channel_id": 1,
+                "currency_id": 154
+            }
+        }
+    ],
+    "languages": [
+        {
+            "id": 37,
+            "code": "en",
+            "pivot": {
+                "channel_id": 1,
+                "language_id": 37
+            }
+        }
+    ],
+    "socket": null
+}  
+[2024-10-13 19:28:44] testing.INFO: Broadcasting [ChannelDeleted] on channels [private-gildsmith.dashboard.channels] with payload:
+{
+    "id": 1,
+    "name": "Default channel",
+    "description": "This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.",
+    "default_currency_id": 154,
+    "default_language_id": 37,
+    "maintenance": 0,
+    "default_currency": {
+        "id": 154,
+        "code": "usd",
+        "decimal": 2
+    },
+    "default_language": {
+        "id": 37,
+        "code": "en"
+    },
+    "currencies": [
+        {
+            "id": 154,
+            "code": "usd",
+            "decimal": 2,
+            "pivot": {
+                "channel_id": 1,
+                "currency_id": 154
+            }
+        }
+    ],
+    "languages": [
+        {
+            "id": 37,
+            "code": "en",
+            "pivot": {
+                "channel_id": 1,
+                "language_id": 37
+            }
+        }
+    ],
+    "socket": null
+}  
+[2024-10-13 19:28:56] testing.INFO: Broadcasting [ChannelDeleted] on channels [private-gildsmith.dashboard.channels] with payload:
+{
+    "id": 1,
+    "name": "Default channel",
+    "description": "This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.",
+    "default_currency_id": 154,
+    "default_language_id": 37,
+    "maintenance": 0,
+    "default_currency": {
+        "id": 154,
+        "code": "usd",
+        "decimal": 2
+    },
+    "default_language": {
+        "id": 37,
+        "code": "en"
+    },
+    "currencies": [
+        {
+            "id": 154,
+            "code": "usd",
+            "decimal": 2,
+            "pivot": {
+                "channel_id": 1,
+                "currency_id": 154
+            }
+        }
+    ],
+    "languages": [
+        {
+            "id": 37,
+            "code": "en",
+            "pivot": {
+                "channel_id": 1,
+                "language_id": 37
+            }
+        }
+    ],
+    "socket": null
+}  
+[2024-10-14 07:08:49] testing.INFO: Broadcasting [ChannelDeleted] on channels [private-gildsmith.dashboard.channels] with payload:
+{
+    "name": "Test Channel",
+    "description": "Test description",
+    "default_currency_id": 999,
+    "default_language_id": 888,
+    "maintenance": false,
+    "id": 2,
+    "socket": null
+}  
+[2024-10-14 07:12:58] testing.INFO: Broadcasting [ChannelDeleted] on channels [private-gildsmith.dashboard.channels] with payload:
+{
+    "id": 1,
+    "name": "Default channel",
+    "description": "This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.",
+    "default_currency_id": 154,
+    "default_language_id": 37,
+    "maintenance": 0,
+    "default_currency": {
+        "id": 154,
+        "code": "usd",
+        "decimal": 2
+    },
+    "default_language": {
+        "id": 37,
+        "code": "en"
+    },
+    "currencies": [
+        {
+            "id": 154,
+            "code": "usd",
+            "decimal": 2,
+            "pivot": {
+                "channel_id": 1,
+                "currency_id": 154
+            }
+        }
+    ],
+    "languages": [
+        {
+            "id": 37,
+            "code": "en",
+            "pivot": {
+                "channel_id": 1,
+                "language_id": 37
+            }
+        }
+    ],
+    "socket": null
+}  
+[2024-10-14 07:13:25] testing.INFO: Broadcasting [ChannelDeleted] on channels [private-gildsmith.dashboard.channels] with payload:
+{
+    "id": 1,
+    "name": "Default channel",
+    "description": "This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.",
+    "default_currency_id": 154,
+    "default_language_id": 37,
+    "maintenance": 0,
+    "default_currency": {
+        "id": 154,
+        "code": "usd",
+        "decimal": 2
+    },
+    "default_language": {
+        "id": 37,
+        "code": "en"
+    },
+    "currencies": [
+        {
+            "id": 154,
+            "code": "usd",
+            "decimal": 2,
+            "pivot": {
+                "channel_id": 1,
+                "currency_id": 154
+            }
+        }
+    ],
+    "languages": [
+        {
+            "id": 37,
+            "code": "en",
+            "pivot": {
+                "channel_id": 1,
+                "language_id": 37
+            }
+        }
+    ],
+    "socket": null
+}  
+[2024-10-14 07:15:23] testing.INFO: Broadcasting [ChannelDeleted] on channels [private-gildsmith.dashboard.channels] with payload:
+{
+    "id": 1,
+    "name": "Default channel",
+    "description": "This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.",
+    "default_currency_id": 154,
+    "default_language_id": 37,
+    "maintenance": 0,
+    "default_currency": {
+        "id": 154,
+        "code": "usd",
+        "decimal": 2
+    },
+    "default_language": {
+        "id": 37,
+        "code": "en"
+    },
+    "currencies": [
+        {
+            "id": 154,
+            "code": "usd",
+            "decimal": 2,
+            "pivot": {
+                "channel_id": 1,
+                "currency_id": 154
+            }
+        }
+    ],
+    "languages": [
+        {
+            "id": 37,
+            "code": "en",
+            "pivot": {
+                "channel_id": 1,
+                "language_id": 37
+            }
+        }
+    ],
+    "socket": null
+}  
+[2024-10-14 07:19:25] testing.INFO: Broadcasting [ChannelDeleted] on channels [private-gildsmith.dashboard.channels] with payload:
+{
+    "id": 1,
+    "name": "Default channel",
+    "description": "This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.",
+    "default_currency_id": 154,
+    "default_language_id": 37,
+    "maintenance": 0,
+    "default_currency": {
+        "id": 154,
+        "code": "usd",
+        "decimal": 2
+    },
+    "default_language": {
+        "id": 37,
+        "code": "en"
+    },
+    "currencies": [
+        {
+            "id": 154,
+            "code": "usd",
+            "decimal": 2,
+            "pivot": {
+                "channel_id": 1,
+                "currency_id": 154
+            }
+        }
+    ],
+    "languages": [
+        {
+            "id": 37,
+            "code": "en",
+            "pivot": {
+                "channel_id": 1,
+                "language_id": 37
+            }
+        }
+    ],
+    "socket": null
+}  
+[2024-10-14 07:20:38] testing.INFO: Broadcasting [ChannelDeleted] on channels [private-gildsmith.dashboard.channels] with payload:
+{
+    "id": 1,
+    "name": "Default channel",
+    "description": "This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.",
+    "default_currency_id": 154,
+    "default_language_id": 37,
+    "maintenance": 0,
+    "default_currency": {
+        "id": 154,
+        "code": "usd",
+        "decimal": 2
+    },
+    "default_language": {
+        "id": 37,
+        "code": "en"
+    },
+    "currencies": [
+        {
+            "id": 154,
+            "code": "usd",
+            "decimal": 2,
+            "pivot": {
+                "channel_id": 1,
+                "currency_id": 154
+            }
+        }
+    ],
+    "languages": [
+        {
+            "id": 37,
+            "code": "en",
+            "pivot": {
+                "channel_id": 1,
+                "language_id": 37
+            }
+        }
+    ],
+    "socket": null
+}  
+[2024-10-14 07:25:39] testing.INFO: Broadcasting [ChannelDeleted] on channels [private-gildsmith.dashboard.channels] with payload:
+{
+    "id": 1,
+    "name": "Default channel",
+    "description": "This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.",
+    "default_currency_id": 154,
+    "default_language_id": 37,
+    "maintenance": 0,
+    "default_currency": {
+        "id": 154,
+        "code": "usd",
+        "decimal": 2
+    },
+    "default_language": {
+        "id": 37,
+        "code": "en"
+    },
+    "currencies": [
+        {
+            "id": 154,
+            "code": "usd",
+            "decimal": 2,
+            "pivot": {
+                "channel_id": 1,
+                "currency_id": 154
+            }
+        }
+    ],
+    "languages": [
+        {
+            "id": 37,
+            "code": "en",
+            "pivot": {
+                "channel_id": 1,
+                "language_id": 37
+            }
+        }
+    ],
+    "socket": null
+}  
+[2024-10-14 08:05:34] testing.INFO: Broadcasting [ChannelDeleted] on channels [private-gildsmith.dashboard.channels] with payload:
+{
+    "id": 1,
+    "name": "Default channel",
+    "description": "This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.",
+    "default_currency_id": 154,
+    "default_language_id": 37,
+    "maintenance": 0,
+    "default_currency": {
+        "id": 154,
+        "code": "usd",
+        "decimal": 2
+    },
+    "default_language": {
+        "id": 37,
+        "code": "en"
+    },
+    "currencies": [
+        {
+            "id": 154,
+            "code": "usd",
+            "decimal": 2,
+            "pivot": {
+                "channel_id": 1,
+                "currency_id": 154
+            }
+        }
+    ],
+    "languages": [
+        {
+            "id": 37,
+            "code": "en",
+            "pivot": {
+                "channel_id": 1,
+                "language_id": 37
+            }
+        }
+    ],
+    "socket": null
+}  
+[2024-10-14 08:16:37] testing.INFO: Broadcasting [ChannelDeleted] on channels [private-gildsmith.dashboard.channels] with payload:
+{
+    "id": 1,
+    "name": "Default channel",
+    "description": "This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.",
+    "default_currency_id": 154,
+    "default_language_id": 37,
+    "maintenance": 0,
+    "default_currency": {
+        "id": 154,
+        "code": "usd",
+        "decimal": 2
+    },
+    "default_language": {
+        "id": 37,
+        "code": "en"
+    },
+    "currencies": [
+        {
+            "id": 154,
+            "code": "usd",
+            "decimal": 2,
+            "pivot": {
+                "channel_id": 1,
+                "currency_id": 154
+            }
+        }
+    ],
+    "languages": [
+        {
+            "id": 37,
+            "code": "en",
+            "pivot": {
+                "channel_id": 1,
+                "language_id": 37
+            }
+        }
+    ],
+    "socket": null
+}  
