@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Gildsmith\CoreApi\Models;
 
+use Gildsmith\CoreApi\Database\Factories\ChannelFactory;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -18,11 +20,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int $default_language_id
  * @property Currency $defaultCurrency
  * @property Language $defaultLanguage
- * @property bool $maintenace
+ * @property bool $maintenance
  */
 class Channel extends Model
 {
-    use BroadcastsEvents;
+    use BroadcastsEvents, HasFactory;
 
     public $timestamps = false;
 
@@ -92,8 +94,13 @@ class Channel extends Model
         return new PrivateChannel('gildsmith.dashboard.channels');
     }
 
-    public function broadcastWith(): array
+    public function broadcastWith(string $event): array
     {
         return $this->toArray();
+    }
+
+    protected static function newFactory(): ChannelFactory
+    {
+        return ChannelFactory::new();
     }
 }

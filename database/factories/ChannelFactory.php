@@ -14,11 +14,11 @@ class ChannelFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->company,
-            'description' => $this->faker->catchPhrase,
+            'name' => fake()->company,
+            'description' => fake()->text,
             'default_currency_id' => 154,
             'default_language_id' => 37,
-            'maintenace' => false,
+            'maintenance' => false,
         ];
     }
 }

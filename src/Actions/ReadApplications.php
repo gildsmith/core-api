@@ -16,7 +16,6 @@ use Lorisleiva\Actions\Concerns\AsController;
 
 class ReadApplications extends Action
 {
-    use AsAction;
     use AsCommand;
     use AsController;
 
