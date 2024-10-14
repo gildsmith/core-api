@@ -17,8 +17,12 @@ jobs:
           tools: composer:v2
           coverage: xdebug
 
-      - name: Set up workbench directory structure
-        run: mkdir -p workbench/bootstrap/cache && chmod -R 0777 workbench/bootstrap/cache
+      - name: Set up required directory structure
+        run: |
+          mkdir -p workbench/bootstrap/cache
+          chmod -R 0777 workbench/bootstrap/cache
+          mkdir -p storage/framework/views
+          chmod -R 0777 storage/framework/views
 
       - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
