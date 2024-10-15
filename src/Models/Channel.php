@@ -39,12 +39,12 @@ class Channel extends Model
     {
         static::creating(function (Channel $channel) {
             /* ID 154 should match United States Dollars */
-            if (!$channel->default_currency_id) {
+            if (! $channel->default_currency_id) {
                 $channel->default_currency_id = self::defaultBlueprint()->default_currency_id;
             }
 
             /* ID 37 should match English */
-            if (!$channel->default_language_id) {
+            if (! $channel->default_language_id) {
                 $channel->default_language_id = self::defaultBlueprint()->default_language_id;
             }
         });
@@ -74,7 +74,7 @@ class Channel extends Model
 
     public static function defaultBlueprint(): self
     {
-        $channel = new Channel();
+        $channel = new Channel;
         $channel->id = 1;
         $channel->name = 'Default channel';
         $channel->description = 'This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.';

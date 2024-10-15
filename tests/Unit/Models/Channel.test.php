@@ -5,7 +5,10 @@ declare(strict_types=1);
 use Gildsmith\CoreApi\Exceptions\DefaultCurrencyDetachException;
 use Gildsmith\CoreApi\Exceptions\DefaultLanguageDetachException;
 use Gildsmith\CoreApi\Models\Channel;
+use Gildsmith\CoreApi\Models\Currency;
+use Gildsmith\CoreApi\Models\Language;
 use Illuminate\Database\QueryException;
+use Illuminate\Database\UniqueConstraintViolationException;
 
 covers(Channel::class);
 
@@ -43,7 +46,7 @@ describe('default channel', function () {
 describe('default currency and language', function () {
 
     it('has initial default values', function () {
-        $channel = new Channel();
+        $channel = new Channel;
         $channel->name = 'Test Channel';
         $channel->save();
 
@@ -55,7 +58,7 @@ describe('default currency and language', function () {
     });
 
     it('does not allow default values to be set outside of the channel relations', function () {
-        $channel = new Channel();
+        $channel = new Channel;
         $channel->name = 'Test Channel';
         $channel->save();
 
@@ -69,7 +72,7 @@ describe('default currency and language', function () {
     });
 
     it('allows default values to be changed to values from relations', function () {
-        $channel = new Channel();
+        $channel = new Channel;
         $channel->name = 'Test Channel';
         $channel->save();
 
@@ -87,7 +90,7 @@ describe('default currency and language', function () {
     });
 
     it('does not allow default values to be set to non-existent IDs', function () {
-        $channel = new Channel();
+        $channel = new Channel;
         $channel->name = 'Test Channel';
         $channel->save();
 
@@ -107,31 +110,47 @@ describe('default currency and language', function () {
 describe('channel relations', function () {
 
     it('ensures at least one currency and language is present', function () {
-        $channel = new Channel();
+        $channel = new Channel;
         $channel->name = 'Test Channel';
         $channel->save();
 
         $channel->currencies()->detach($channel->default_currency_id);
         $channel->languages()->detach($channel->default_language_id);
 
-        $channel->refresh();
-
-        expect($channel->currencies)->toHaveCount(1);
-        expect($channel->languages)->toHaveCount(1);
-
     })->throws(DefaultLanguageDetachException::class)
         ->throws(DefaultCurrencyDetachException::class);
 
     it('allows unlimited currencies and languages', function () {
-        //
+        $channel = new Channel;
+        $channel->name = 'Test Channel';
+        $channel->save();
+
+        $currencies = Currency::pluck('id')->toArray();
+        $languages = Language::pluck('id')->toArray();
+
+        $channel->currencies()->syncWithoutDetaching($currencies);
+        $channel->languages()->syncWithoutDetaching($languages);
+
+        $channel->refresh();
+
+        expect($channel->currencies)->toHaveCount(count($currencies));
+        expect($channel->languages)->toHaveCount(count($languages));
     });
 
     it('ensures relationships are unique', function () {
-        //
-    });
+        $channel = new Channel;
+        $channel->name = 'Test Channel';
+        $channel->save();
+
+        $channel->currencies()->attach($channel->default_currency_id);
+        $channel->languages()->attach($channel->default_language_id);
+
+    })->throws(UniqueConstraintViolationException::class);
 
     it('loads the object with all relations', function () {
-        //
+        $channel = Channel::find(1);
+
+        expect($channel->toArray())->toHaveKeys(['default_currency', 'default_language', 'currencies', 'languages']);
     });
 
 });

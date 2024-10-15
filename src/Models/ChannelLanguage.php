@@ -25,7 +25,7 @@ class ChannelLanguage extends Pivot
     {
         static::deleting(function (ChannelLanguage $instance) {
             if ($instance->language_id === $instance->channel->default_language_id) {
-                throw new DefaultLanguageDetachException();
+                throw new DefaultLanguageDetachException;
             }
         });
     }

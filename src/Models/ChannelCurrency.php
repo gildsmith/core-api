@@ -25,7 +25,7 @@ class ChannelCurrency extends Pivot
     {
         static::deleting(function (ChannelCurrency $instance) {
             if ($instance->currency_id === $instance->channel->default_currency_id) {
-                throw new DefaultCurrencyDetachException();
+                throw new DefaultCurrencyDetachException;
             }
         });
     }
