@@ -150,7 +150,10 @@ describe('channel relations', function () {
     it('loads the object with all relations', function () {
         $channel = Channel::find(1);
 
-        expect($channel->toArray())->toHaveKeys(['default_currency', 'default_language', 'currencies', 'languages']);
+        expect($channel->toArray())->toHaveKey('default_currency');
+        expect($channel->toArray())->toHaveKey('default_language');
+        expect($channel->toArray())->toHaveKey('currencies');
+        expect($channel->toArray())->toHaveKey('languages');
     });
 
 });
