@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $channel = Channel::defaultBlueprint();
+        $channel = Channel::default();
         $channel->save();
     }
 

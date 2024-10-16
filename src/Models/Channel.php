@@ -38,14 +38,12 @@ class Channel extends Model
     protected static function booted(): void
     {
         static::creating(function (Channel $channel) {
-            /* ID 154 should match United States Dollars */
-            if (! $channel->default_currency_id) {
-                $channel->default_currency_id = self::defaultBlueprint()->default_currency_id;
+            if (!$channel->default_currency_id) {
+                $channel->default_currency_id = self::default()->default_currency_id;
             }
 
-            /* ID 37 should match English */
-            if (! $channel->default_language_id) {
-                $channel->default_language_id = self::defaultBlueprint()->default_language_id;
+            if (!$channel->default_language_id) {
+                $channel->default_language_id = self::default()->default_language_id;
             }
         });
 
@@ -55,11 +53,30 @@ class Channel extends Model
         });
 
         static::deleted(function (Channel $channel) {
-            if ($channel->id === self::defaultBlueprint()->id) {
-                $channel = self::defaultBlueprint();
+            if ($channel->id === self::default()->id) {
+                $channel = self::default();
                 $channel->save();
             }
         });
+    }
+
+    /**
+     * TODO convert to a collection for consistency with other models
+     */
+    public static function default(): self
+    {
+        $channel = new self();
+        $channel->id = 1;
+        $channel->name = 'Default channel';
+        $channel->description = 'This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.';
+
+        /* ID 154 should match United States Dollars */
+        $channel->default_currency_id = 154;
+
+        /* ID 37 should match English */
+        $channel->default_language_id = 37;
+
+        return $channel;
     }
 
     public function currencies(): BelongsToMany
@@ -70,18 +87,6 @@ class Channel extends Model
     public function languages(): BelongsToMany
     {
         return $this->belongsToMany(Language::class)->using(ChannelLanguage::class);
-    }
-
-    public static function defaultBlueprint(): self
-    {
-        $channel = new Channel;
-        $channel->id = 1;
-        $channel->name = 'Default channel';
-        $channel->description = 'This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.';
-        $channel->default_currency_id = 154;
-        $channel->default_language_id = 37;
-
-        return $channel;
     }
 
     protected static function newFactory(): ChannelFactory
@@ -104,7 +109,7 @@ class Channel extends Model
         return new PrivateChannel('gildsmith.dashboard.channels');
     }
 
-    public function broadcastWith(string $event): array
+    public function broadcastWith(): array
     {
         return $this->toArray();
     }
