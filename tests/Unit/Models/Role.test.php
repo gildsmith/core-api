@@ -22,11 +22,11 @@ describe('default roles', function () {
     });
 
     it('ensures the role name is unique', function () {
-        $firstRole = new Role();
+        $firstRole = new Role;
         $firstRole->name = 'new role';
         $firstRole->save();
 
-        $secondRole = new Role();
+        $secondRole = new Role;
         $secondRole->name = 'new role';
         $secondRole->save();
 
