@@ -38,11 +38,11 @@ class Channel extends Model
     protected static function booted(): void
     {
         static::creating(function (Channel $channel) {
-            if (!$channel->default_currency_id) {
+            if (! $channel->default_currency_id) {
                 $channel->default_currency_id = self::default()->default_currency_id;
             }
 
-            if (!$channel->default_language_id) {
+            if (! $channel->default_language_id) {
                 $channel->default_language_id = self::default()->default_language_id;
             }
         });
@@ -65,7 +65,7 @@ class Channel extends Model
      */
     public static function default(): self
     {
-        $channel = new self();
+        $channel = new self;
         $channel->id = 1;
         $channel->name = 'Default channel';
         $channel->description = 'This channel is the default and cannot be deleted. When pruned, it will be instantly recreated with the ID 1.';
