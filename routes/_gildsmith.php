@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Gildsmith\CoreApi\Actions\ReadApplications;
-use Gildsmith\CoreApi\Actions\ReadCurrencies;
-use Gildsmith\CoreApi\Actions\ReadLanguages;
+use Gildsmith\CoreApi\Http\Controllers\Gildsmith\ReadApplications;
+use Gildsmith\CoreApi\Http\Controllers\Gildsmith\ReadCurrencies;
+use Gildsmith\CoreApi\Http\Controllers\Gildsmith\ReadLanguages;
 use Illuminate\Support\Facades\Route;
 
 Route::get('_gildsmith/currencies', ReadCurrencies::class);

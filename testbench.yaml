@@ -1,5 +1,5 @@
-#providers:
-#  - Gildsmith\CoreApi\Providers\CoreServiceProvider
+providers:
+  - Gildsmith\CoreApi\Providers\CoreServiceProvider
 
 migrations:
   - database/migrations

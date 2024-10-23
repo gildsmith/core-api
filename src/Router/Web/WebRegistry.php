@@ -18,15 +18,6 @@ class WebRegistry
     protected static WebAppBuilder $fallbackApplication;
 
     /**
-     * Initializes the registry by loading web
-     * applications from the Gildsmith configuration.
-     */
-    public static function init(): void
-    {
-        self::$fallbackApplication = self::$fallbackApplication ?? new WebAppBuilder;
-    }
-
-    /**
      * Finds and returns the first web application whose route
      * matches the given route, or the fallback web application.
      */
@@ -60,7 +51,18 @@ class WebRegistry
      */
     public static function getFullRegistry(): array
     {
+        WebRegistry::init();
+
         return [...self::$registry, self::$fallbackApplication];
+    }
+
+    /**
+     * Initializes the registry by loading web
+     * applications from the Gildsmith configuration.
+     */
+    public static function init(): void
+    {
+        self::$fallbackApplication = self::$fallbackApplication ?? new WebAppBuilder();
     }
 
     public static function setFallback(WebAppBuilder $webApplication): void

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Gildsmith\CoreApi\Providers;
 
-use Gildsmith\CoreApi\Actions\ReadApplications;
+use Gildsmith\CoreApi\Console\ReadApplications;
 use Gildsmith\CoreApi\Facades\Gildsmith;
 use Gildsmith\CoreApi\Http\Middleware\ForceJsonResponse;
 use Gildsmith\CoreApi\Http\Middleware\SetLanguage;
@@ -12,6 +12,7 @@ use Gildsmith\CoreApi\Models\User;
 use Gildsmith\CoreApi\Router\Web\WebRegistry;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
@@ -23,18 +24,19 @@ final class CoreServiceProvider extends ServiceProvider
      * that can be executed as Artisan commands.
      */
     protected array $commands = [
-        ReadApplications::class,
+        ReadApplications::class
     ];
 
     public function register(): void
     {
-        $this->app->bind('gildsmith', fn () => new \Gildsmith\CoreApi\Gildsmith);
+        $this->app->bind('gildsmith', fn() => new \Gildsmith\CoreApi\Gildsmith());
     }
 
     public function boot(Kernel $kernel): void
     {
         $this->bootResources();
         $this->bootMiddlewares($kernel);
+        $this->bootGates();
         $this->bootRoutes();
         $this->bootApiFeatures();
         $this->bootCommands();
@@ -62,13 +64,18 @@ final class CoreServiceProvider extends ServiceProvider
      */
     private function packagePath(string $path): string
     {
-        return dirname(__DIR__, 2).'/'.$path;
+        return dirname(__DIR__, 2) . '/' . $path;
     }
 
     public function bootMiddlewares(Kernel $kernel): void
     {
         $kernel->prependMiddlewareToGroup('api', SetLanguage::class);
         $kernel->prependMiddlewareToGroup('api', ForceJsonResponse::class);
+    }
+
+    public function bootGates(): void
+    {
+        Gate::define('role', fn($user, $role) => $user->hasRole($role));
     }
 
     /**
@@ -108,8 +115,6 @@ final class CoreServiceProvider extends ServiceProvider
 
     public function bootBroadcastChannels(): void
     {
-        Broadcast::channel('gildsmith.dashboard.channels', function (User $user) {
-            return $user->role->name === 'admin';
-        });
+        Broadcast::channel('gildsmith.dashboard.channels', fn(User $user) => $user->hasRole('admin'));
     }
 }

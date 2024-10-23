@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
-use Gildsmith\HubApi\Models\ChannelCurrency;
+use Gildsmith\CoreApi\Models\ChannelCurrency;
 
 covers(ChannelCurrency::class);
+
+// TODO

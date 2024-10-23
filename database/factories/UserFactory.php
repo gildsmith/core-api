@@ -36,6 +36,13 @@ class UserFactory extends Factory
         ]);
     }
 
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role_id' => UserRoleEnum::ADMIN->id(),
+        ]);
+    }
+
     #[Override]
     public function create($attributes = [], ?Model $parent = null): User
     {
