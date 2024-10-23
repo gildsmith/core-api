@@ -13,9 +13,9 @@ class ReadApplications extends Controller
 {
     protected WebRegistry $webRegistry;
 
-    public function __construct(WebRegistry $webRegistry = null)
+    public function __construct(?WebRegistry $webRegistry = null)
     {
-        $this->webRegistry = $webRegistry ?? new WebRegistry();
+        $this->webRegistry = $webRegistry ?? new WebRegistry;
     }
 
     /**

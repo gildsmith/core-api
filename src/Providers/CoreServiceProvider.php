@@ -24,12 +24,12 @@ final class CoreServiceProvider extends ServiceProvider
      * that can be executed as Artisan commands.
      */
     protected array $commands = [
-        ReadApplications::class
+        ReadApplications::class,
     ];
 
     public function register(): void
     {
-        $this->app->bind('gildsmith', fn() => new \Gildsmith\CoreApi\Gildsmith());
+        $this->app->bind('gildsmith', fn () => new \Gildsmith\CoreApi\Gildsmith);
     }
 
     public function boot(Kernel $kernel): void
@@ -64,7 +64,7 @@ final class CoreServiceProvider extends ServiceProvider
      */
     private function packagePath(string $path): string
     {
-        return dirname(__DIR__, 2) . '/' . $path;
+        return dirname(__DIR__, 2).'/'.$path;
     }
 
     public function bootMiddlewares(Kernel $kernel): void
@@ -75,7 +75,7 @@ final class CoreServiceProvider extends ServiceProvider
 
     public function bootGates(): void
     {
-        Gate::define('role', fn($user, $role) => $user->hasRole($role));
+        Gate::define('role', fn ($user, $role) => $user->hasRole($role));
     }
 
     /**
@@ -115,6 +115,6 @@ final class CoreServiceProvider extends ServiceProvider
 
     public function bootBroadcastChannels(): void
     {
-        Broadcast::channel('gildsmith.dashboard.channels', fn(User $user) => $user->hasRole('admin'));
+        Broadcast::channel('gildsmith.dashboard.channels', fn (User $user) => $user->hasRole('admin'));
     }
 }

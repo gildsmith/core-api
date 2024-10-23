@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Gildsmith\CoreApi\Console;
 
 use Gildsmith\CoreApi\Router\Web\WebRegistry;

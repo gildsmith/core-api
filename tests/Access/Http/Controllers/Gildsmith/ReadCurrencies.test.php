@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Gildsmith\CoreApi\Database\Factories\UserFactory;
 use Gildsmith\CoreApi\Http\Controllers\Gildsmith\ReadCurrencies;
 use Gildsmith\CoreApi\Models\User;
@@ -7,7 +9,7 @@ use Gildsmith\CoreApi\Models\User;
 covers(ReadCurrencies::class);
 
 it('allows admin access', function () {
-    $user = (new UserFactory())->admin()->create();
+    $user = (new UserFactory)->admin()->create();
 
     $this->actingAs($user)
         ->get('/_gildsmith/currencies')
