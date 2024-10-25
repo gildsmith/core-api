@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Gildsmith\CoreApi\Database\Factories\UserFactory;
 use Gildsmith\CoreApi\Enums\UserRoleEnum;
 use Gildsmith\CoreApi\Http\Controllers\Gildsmith\ReadApplications;
@@ -16,7 +18,7 @@ beforeEach(function () {
     $guestApp->shouldReceive('getIdentifier')->andReturn('guestApp');
     $guestApp->shouldReceive('jsonSerialize')->andReturn([
         'identifier' => 'guestApp',
-        'groups' => ['guest']
+        'groups' => ['guest'],
     ]);
 
     $userApp = Mockery::mock(WebAppBuilder::class);
@@ -24,7 +26,7 @@ beforeEach(function () {
     $userApp->shouldReceive('getIdentifier')->andReturn('userApp');
     $userApp->shouldReceive('jsonSerialize')->andReturn([
         'identifier' => 'userApp',
-        'groups' => ['user']
+        'groups' => ['user'],
     ]);
 
     $adminApp = Mockery::mock(WebAppBuilder::class);
@@ -32,7 +34,7 @@ beforeEach(function () {
     $adminApp->shouldReceive('getIdentifier')->andReturn('adminApp');
     $adminApp->shouldReceive('jsonSerialize')->andReturn([
         'identifier' => 'adminApp',
-        'groups' => ['admin']
+        'groups' => ['admin'],
     ]);
 
     $multiRoleApp = Mockery::mock(WebAppBuilder::class);
@@ -40,7 +42,7 @@ beforeEach(function () {
     $multiRoleApp->shouldReceive('getIdentifier')->andReturn('multiRoleApp');
     $multiRoleApp->shouldReceive('jsonSerialize')->andReturn([
         'identifier' => 'multiRoleApp',
-        'groups' => ['guest', 'user']
+        'groups' => ['guest', 'user'],
     ]);
 
     $this->mockRegistry
@@ -49,12 +51,12 @@ beforeEach(function () {
 
     $this->app->instance(WebRegistry::class, $this->mockRegistry);
 
-})->afterEach(fn() => Mockery::close());
+})->afterEach(fn () => Mockery::close());
 
 describe('controller access', function () {
 
     it('user can only see respective apps', function () {
-        $user = (new UserFactory())->create(['role_id' => UserRoleEnum::USER->id()]);
+        $user = (new UserFactory)->create(['role_id' => UserRoleEnum::USER->id()]);
         $response = $this->actingAs($user)->get('_gildsmith/apps');
 
         $apps = json_decode($response->getContent(), true);
@@ -75,7 +77,7 @@ describe('controller access', function () {
     });
 
     it('admin can see all apps', function () {
-        $adminUser = (new UserFactory())->admin()->create();
+        $adminUser = (new UserFactory)->admin()->create();
         $response = $this->actingAs($adminUser)->get('_gildsmith/apps');
 
         $apps = json_decode($response->getContent(), true);
@@ -85,7 +87,7 @@ describe('controller access', function () {
     });
 
     it('user cannot see selected app if not allowed', function () {
-        $user = (new UserFactory())->create(['role_id' => UserRoleEnum::USER->id()]);
+        $user = (new UserFactory)->create(['role_id' => UserRoleEnum::USER->id()]);
         $response = $this->actingAs($user)->get('_gildsmith/apps/adminApp');
 
         $apps = json_decode($response->getContent(), true);
@@ -104,7 +106,7 @@ describe('controller access', function () {
     });
 
     it('admin can see any selected app, even without explicit permissions', function () {
-        $adminUser = (new UserFactory())->admin()->create();
+        $adminUser = (new UserFactory)->admin()->create();
         $response = $this->actingAs($adminUser)->get('_gildsmith/apps/guestApp');
 
         $apps = json_decode($response->getContent(), true);
