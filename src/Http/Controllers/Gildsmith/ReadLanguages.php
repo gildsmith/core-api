@@ -1,7 +1,8 @@
 <?php
 
-namespace Gildsmith\CoreApi\Http\Controllers\Gildsmith;
+declare(strict_types=1);
 
+namespace Gildsmith\CoreApi\Http\Controllers\Gildsmith;
 
 use Gildsmith\CoreApi\Http\Controllers\Controller;
 use Gildsmith\CoreApi\Models\Language;

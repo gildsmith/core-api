@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 use Gildsmith\CoreApi\Database\Factories\UserFactory;
 use Gildsmith\CoreApi\Http\Controllers\Gildsmith\ReadLanguages;
 
 covers(ReadLanguages::class);
 
 it('returns a JSON response', function () {
-    $user = (new UserFactory())->admin()->create();
+    $user = (new UserFactory)->admin()->create();
 
     $this->actingAs($user)
         ->get('/_gildsmith/languages')
@@ -14,7 +16,7 @@ it('returns a JSON response', function () {
 });
 
 it('each language item has an id and code', function () {
-    $user = (new UserFactory())->admin()->create();
+    $user = (new UserFactory)->admin()->create();
 
     $this->actingAs($user)
         ->get('/_gildsmith/languages')
