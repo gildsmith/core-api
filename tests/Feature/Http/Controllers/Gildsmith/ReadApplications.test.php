@@ -55,7 +55,7 @@ describe('controller features', function () {
 
     it('returns apps in correct format for admin user', function () {
         $adminUser = (new UserFactory())->admin()->create();
-        $response = $this->actingAs($adminUser)->get('_gildsmith/apps');
+        $response = $this->actingAs($adminUser)->get('api/gildsmith/apps');
 
         $response->assertStatus(200);
         $response->assertJsonStructure([

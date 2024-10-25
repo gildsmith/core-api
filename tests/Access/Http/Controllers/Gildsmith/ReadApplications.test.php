@@ -55,7 +55,7 @@ describe('controller access', function () {
 
     it('user can only see respective apps', function () {
         $user = (new UserFactory())->create(['role_id' => UserRoleEnum::USER->id()]);
-        $response = $this->actingAs($user)->get('_gildsmith/apps');
+        $response = $this->actingAs($user)->get('api/gildsmith/apps');
 
         $apps = json_decode($response->getContent(), true);
         $identifiers = collect($apps)->pluck('identifier')->toArray();
@@ -65,7 +65,7 @@ describe('controller access', function () {
     });
 
     it('guest (unauthenticated user) can only see public apps', function () {
-        $response = $this->get('_gildsmith/apps');
+        $response = $this->get('api/gildsmith/apps');
 
         $apps = json_decode($response->getContent(), true);
         $identifiers = collect($apps)->pluck('identifier')->toArray();
@@ -76,7 +76,7 @@ describe('controller access', function () {
 
     it('admin can see all apps', function () {
         $adminUser = (new UserFactory())->admin()->create();
-        $response = $this->actingAs($adminUser)->get('_gildsmith/apps');
+        $response = $this->actingAs($adminUser)->get('api/gildsmith/apps');
 
         $apps = json_decode($response->getContent(), true);
         $identifiers = collect($apps)->pluck('identifier')->toArray();
@@ -86,7 +86,7 @@ describe('controller access', function () {
 
     it('user cannot see selected app if not allowed', function () {
         $user = (new UserFactory())->create(['role_id' => UserRoleEnum::USER->id()]);
-        $response = $this->actingAs($user)->get('_gildsmith/apps/adminApp');
+        $response = $this->actingAs($user)->get('api/gildsmith/apps/adminApp');
 
         $apps = json_decode($response->getContent(), true);
         $identifiers = collect($apps)->pluck('identifier')->toArray();
@@ -95,7 +95,7 @@ describe('controller access', function () {
     });
 
     it('guest (unauthenticated user) cannot see selected app if not allowed', function () {
-        $response = $this->get('_gildsmith/apps/userApp');
+        $response = $this->get('api/gildsmith/apps/userApp');
 
         $apps = json_decode($response->getContent(), true);
         $identifiers = collect($apps)->pluck('identifier')->toArray();
@@ -105,7 +105,7 @@ describe('controller access', function () {
 
     it('admin can see any selected app, even without explicit permissions', function () {
         $adminUser = (new UserFactory())->admin()->create();
-        $response = $this->actingAs($adminUser)->get('_gildsmith/apps/guestApp');
+        $response = $this->actingAs($adminUser)->get('api/gildsmith/apps/guestApp');
 
         $apps = json_decode($response->getContent(), true);
         $identifiers = collect($apps)->pluck('identifier')->toArray();

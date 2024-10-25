@@ -12,7 +12,7 @@ it('allows admin access', function () {
     $user = (new UserFactory)->admin()->create();
 
     $this->actingAs($user)
-        ->get('/_gildsmith/currencies')
+        ->get('/api/gildsmith/currencies')
         ->assertStatus(200);
 });
 
@@ -20,6 +20,6 @@ it('does not allow user access', function () {
     $user = User::factory()->create();
 
     $this->actingAs($user)
-        ->get('/_gildsmith/currencies')
+        ->get('/api/gildsmith/currencies')
         ->assertStatus(403);
 });

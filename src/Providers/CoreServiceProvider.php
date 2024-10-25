@@ -87,7 +87,7 @@ final class CoreServiceProvider extends ServiceProvider
         WebRegistry::init();
 
         Route::middleware(EnsureFrontendRequestsAreStateful::class)->group(function () {
-            require $this->packagePath('routes/_gildsmith.php');
+            require $this->packagePath('routes/gildsmith.php');
         });
     }
 

@@ -11,7 +11,7 @@ it('returns a JSON response', function () {
     $user = (new UserFactory)->admin()->create();
 
     $this->actingAs($user)
-        ->get('/_gildsmith/languages')
+        ->get('/api/gildsmith/languages')
         ->assertHeader('Content-Type', 'application/json');
 });
 
@@ -19,6 +19,6 @@ it('each language item has an id and code', function () {
     $user = (new UserFactory)->admin()->create();
 
     $this->actingAs($user)
-        ->get('/_gildsmith/languages')
+        ->get('/api/gildsmith/languages')
         ->assertJsonStructure(['*' => ['id', 'code']]);
 });
