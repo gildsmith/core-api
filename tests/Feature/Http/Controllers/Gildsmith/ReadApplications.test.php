@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Gildsmith\CoreApi\Database\Factories\UserFactory;
 use Gildsmith\CoreApi\Http\Controllers\Gildsmith\ReadApplications;
 use Gildsmith\CoreApi\Router\Web\WebAppBuilder;
@@ -15,7 +17,7 @@ beforeEach(function () {
     $guestApp->shouldReceive('getIdentifier')->andReturn('guestApp');
     $guestApp->shouldReceive('jsonSerialize')->andReturn([
         'identifier' => 'guestApp',
-        'groups' => ['guest']
+        'groups' => ['guest'],
     ]);
 
     $userApp = Mockery::mock(WebAppBuilder::class);
@@ -23,7 +25,7 @@ beforeEach(function () {
     $userApp->shouldReceive('getIdentifier')->andReturn('userApp');
     $userApp->shouldReceive('jsonSerialize')->andReturn([
         'identifier' => 'userApp',
-        'groups' => ['user']
+        'groups' => ['user'],
     ]);
 
     $adminApp = Mockery::mock(WebAppBuilder::class);
@@ -31,7 +33,7 @@ beforeEach(function () {
     $adminApp->shouldReceive('getIdentifier')->andReturn('adminApp');
     $adminApp->shouldReceive('jsonSerialize')->andReturn([
         'identifier' => 'adminApp',
-        'groups' => ['admin']
+        'groups' => ['admin'],
     ]);
 
     $multiRoleApp = Mockery::mock(WebAppBuilder::class);
@@ -39,7 +41,7 @@ beforeEach(function () {
     $multiRoleApp->shouldReceive('getIdentifier')->andReturn('multiRoleApp');
     $multiRoleApp->shouldReceive('jsonSerialize')->andReturn([
         'identifier' => 'multiRoleApp',
-        'groups' => ['guest', 'user']
+        'groups' => ['guest', 'user'],
     ]);
 
     $this->mockRegistry
@@ -48,13 +50,12 @@ beforeEach(function () {
 
     $this->app->instance(WebRegistry::class, $this->mockRegistry);
 
-})->afterEach(fn() => Mockery::close());
-
+})->afterEach(fn () => Mockery::close());
 
 describe('controller features', function () {
 
     it('returns apps in correct format for admin user', function () {
-        $adminUser = (new UserFactory())->admin()->create();
+        $adminUser = (new UserFactory)->admin()->create();
         $response = $this->actingAs($adminUser)->get('api/gildsmith/apps');
 
         $response->assertStatus(200);
