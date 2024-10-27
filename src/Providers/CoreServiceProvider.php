@@ -13,9 +13,7 @@ use Gildsmith\CoreApi\Router\Web\WebRegistry;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 final class CoreServiceProvider extends ServiceProvider
 {
@@ -85,10 +83,6 @@ final class CoreServiceProvider extends ServiceProvider
     public function bootRoutes(): void
     {
         WebRegistry::init();
-
-        Route::middleware(EnsureFrontendRequestsAreStateful::class)->group(function () {
-            require $this->packagePath('routes/gildsmith.php');
-        });
     }
 
     /**
@@ -97,6 +91,9 @@ final class CoreServiceProvider extends ServiceProvider
      */
     public function bootApiFeatures(): void
     {
+        Gildsmith::feature('gildsmith')
+            ->file($this->packagePath('routes/gildsmith.php'));
+
         Gildsmith::feature('channels')
             ->file($this->packagePath('routes/channels.php'))
             ->flagged('admin');

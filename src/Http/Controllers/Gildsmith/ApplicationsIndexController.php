@@ -9,7 +9,7 @@ use Gildsmith\CoreApi\Router\Web\WebRegistry;
 use Gildsmith\CoreApi\Utils\ApplicationFilter;
 use Illuminate\Http\Request;
 
-class ReadApplications extends Controller
+class ApplicationsIndexController extends Controller
 {
     protected WebRegistry $webRegistry;
 

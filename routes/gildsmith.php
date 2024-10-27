@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use Gildsmith\CoreApi\Http\Controllers\Gildsmith\ReadApplications;
-use Gildsmith\CoreApi\Http\Controllers\Gildsmith\ReadCurrencies;
-use Gildsmith\CoreApi\Http\Controllers\Gildsmith\ReadLanguages;
+use Gildsmith\CoreApi\Http\Controllers\Gildsmith\ApplicationsIndexController;
+use Gildsmith\CoreApi\Http\Controllers\Gildsmith\CurrenciesIndexController;
+use Gildsmith\CoreApi\Http\Controllers\Gildsmith\LanguagesIndexController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('api/gildsmith/currencies', ReadCurrencies::class);
-Route::get('api/gildsmith/languages', ReadLanguages::class);
+Route::get('/currencies', CurrenciesIndexController::class);
+Route::get('/languages', LanguagesIndexController::class);
 
-Route::get('api/gildsmith/apps', ReadApplications::class);
-Route::get('api/gildsmith/apps/{app}', ReadApplications::class);
+Route::get('/apps', ApplicationsIndexController::class);
+Route::get('/apps/{app}', ApplicationsIndexController::class);

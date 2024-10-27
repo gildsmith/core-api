@@ -1,5 +1,8 @@
 providers:
+  - Laravel\Pennant\PennantServiceProvider
+  - Laravel\Sanctum\SanctumServiceProvider
   - Gildsmith\CoreApi\Providers\CoreServiceProvider
+  - Gildsmith\CoreApi\Providers\TestServiceProvider
 
 migrations:
   - database/migrations
