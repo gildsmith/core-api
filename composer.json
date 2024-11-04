@@ -33,8 +33,7 @@
         "pestphp/pest": "^3.3",
         "pestphp/pest-plugin-watch": "^3.0",
         "pestphp/pest-plugin-type-coverage": "^3.1",
-        "pestphp/pest-plugin-stressless": "^3.0",
-        "barryvdh/laravel-ide-helper": "^3.1"
+        "pestphp/pest-plugin-stressless": "^3.0"
     },
     "extra": {
         "laravel": {

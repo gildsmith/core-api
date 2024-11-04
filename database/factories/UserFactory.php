@@ -8,6 +8,7 @@ use Gildsmith\CoreApi\Enums\UserRoleEnum;
 use Gildsmith\CoreApi\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Override;
@@ -44,7 +45,7 @@ class UserFactory extends Factory
     }
 
     #[Override]
-    public function create($attributes = [], ?Model $parent = null): User
+    public function create($attributes = [], ?Model $parent = null): User|Collection
     {
         return parent::create($attributes, $parent);
     }

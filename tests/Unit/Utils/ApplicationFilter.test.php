@@ -9,27 +9,27 @@ use Gildsmith\CoreApi\Utils\ApplicationFilter;
 covers(ApplicationFilter::class);
 
 beforeEach(function () {
-    $this->mockRegistry = Mockery::mock(WebRegistry::class);
+    $this->mockRegistry = mock(WebRegistry::class);
 
-    $guestApp = Mockery::mock(WebAppBuilder::class);
-    $guestApp->shouldReceive('getGroups')->andReturn(['guest']);
-    $guestApp->shouldReceive('getIdentifier')->andReturn('guestApp');
+    $guestApp = mock(WebAppBuilder::class);
+    $guestApp->allows('getGroups')->andReturn(['guest']);
+    $guestApp->allows('getIdentifier')->andReturn('guestApp');
 
-    $userApp = Mockery::mock(WebAppBuilder::class);
-    $userApp->shouldReceive('getGroups')->andReturn(['user']);
-    $userApp->shouldReceive('getIdentifier')->andReturn('userApp');
+    $userApp = mock(WebAppBuilder::class);
+    $userApp->allows('getGroups')->andReturn(['user']);
+    $userApp->allows('getIdentifier')->andReturn('userApp');
 
-    $adminApp = Mockery::mock(WebAppBuilder::class);
-    $adminApp->shouldReceive('getGroups')->andReturn(['admin']);
-    $adminApp->shouldReceive('getIdentifier')->andReturn('adminApp');
+    $adminApp = mock(WebAppBuilder::class);
+    $adminApp->allows('getGroups')->andReturn(['admin']);
+    $adminApp->allows('getIdentifier')->andReturn('adminApp');
 
-    $multiRoleApp = Mockery::mock(WebAppBuilder::class);
-    $multiRoleApp->shouldReceive('getGroups')->andReturn(['guest', 'user']);
-    $multiRoleApp->shouldReceive('getIdentifier')->andReturn('multiRoleApp');
+    $multiRoleApp = mock(WebAppBuilder::class);
+    $multiRoleApp->allows('getGroups')->andReturn(['guest', 'user']);
+    $multiRoleApp->allows('getIdentifier')->andReturn('multiRoleApp');
 
     $apps = [$guestApp, $userApp, $adminApp, $multiRoleApp];
 
-    $this->mockRegistry->shouldReceive('getFullRegistry')
+    $this->mockRegistry->allows('getFullRegistry')
         ->andReturn($apps);
 
 })->afterEach(fn () => Mockery::close());

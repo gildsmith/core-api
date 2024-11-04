@@ -12,13 +12,15 @@ class ApiFeatureRegistry
      * Appends a new feature builder to the registry
      * with its associated route builder.
      */
-    public static function add(string $feature, ApiFeatureBuilder $apiFeatureRoutes): void
+    public static function add(string $featureIdentifier, ApiFeatureBuilder $apiFeatureRoutes): void
     {
-        if (! in_array($feature, self::$registry)) {
-            self::$registry[$feature] = [];
+        if (! array_key_exists($featureIdentifier, self::$registry)) {
+            self::$registry[$featureIdentifier] = [];
         }
 
-        self::$registry[$feature][] = $apiFeatureRoutes;
+        if (! in_array($apiFeatureRoutes, self::$registry[$featureIdentifier], true)) {
+            self::$registry[$featureIdentifier][] = $apiFeatureRoutes;
+        }
     }
 
     /**
@@ -26,12 +28,8 @@ class ApiFeatureRegistry
      */
     public static function call(): void
     {
-        foreach (self::$registry as $feature) {
-
-            /** @var ApiFeatureBuilder $builder */
-            foreach ($feature as $builder) {
-                ($builder->build())();
-            }
-        }
+        array_walk_recursive(self::$registry, function (ApiFeatureBuilder $builder) {
+            ($builder->build())();
+        });
     }
 }

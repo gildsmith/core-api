@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('decimal')->unsigned();
         });
 
-        Currency::insert(require dirname(__DIR__).'/datasets/currencies.php');
+        Currency::insertOrIgnore(require dirname(__DIR__).'/datasets/currencies.php');
     }
 
     /**

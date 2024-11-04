@@ -10,9 +10,9 @@ use Gildsmith\CoreApi\Router\Web\WebRegistry;
 covers(ApplicationsIndexController::class);
 
 beforeEach(function () {
-    $this->mockRegistry = Mockery::mock(WebRegistry::class);
+    $this->mockRegistry = mock(WebRegistry::class);
 
-    $guestApp = Mockery::mock(WebAppBuilder::class);
+    $guestApp = mock(WebAppBuilder::class);
     $guestApp->shouldReceive('getGroups')->andReturn(['guest']);
     $guestApp->shouldReceive('getIdentifier')->andReturn('guestApp');
     $guestApp->shouldReceive('jsonSerialize')->andReturn([
@@ -20,7 +20,7 @@ beforeEach(function () {
         'groups' => ['guest'],
     ]);
 
-    $userApp = Mockery::mock(WebAppBuilder::class);
+    $userApp = mock(WebAppBuilder::class);
     $userApp->shouldReceive('getGroups')->andReturn(['user']);
     $userApp->shouldReceive('getIdentifier')->andReturn('userApp');
     $userApp->shouldReceive('jsonSerialize')->andReturn([
@@ -28,7 +28,7 @@ beforeEach(function () {
         'groups' => ['user'],
     ]);
 
-    $adminApp = Mockery::mock(WebAppBuilder::class);
+    $adminApp = mock(WebAppBuilder::class);
     $adminApp->shouldReceive('getGroups')->andReturn(['admin']);
     $adminApp->shouldReceive('getIdentifier')->andReturn('adminApp');
     $adminApp->shouldReceive('jsonSerialize')->andReturn([
@@ -36,7 +36,7 @@ beforeEach(function () {
         'groups' => ['admin'],
     ]);
 
-    $multiRoleApp = Mockery::mock(WebAppBuilder::class);
+    $multiRoleApp = mock(WebAppBuilder::class);
     $multiRoleApp->shouldReceive('getGroups')->andReturn(['guest', 'user']);
     $multiRoleApp->shouldReceive('getIdentifier')->andReturn('multiRoleApp');
     $multiRoleApp->shouldReceive('jsonSerialize')->andReturn([
@@ -52,24 +52,20 @@ beforeEach(function () {
 
 })->afterEach(fn () => Mockery::close());
 
-describe('controller features', function () {
+it('returns apps in correct format for admin user', function () {
+    $adminUser = (new UserFactory)->admin()->create();
+    $response = $this->actingAs($adminUser)->get('api/gildsmith/apps');
 
-    it('returns apps in correct format for admin user', function () {
-        $adminUser = (new UserFactory)->admin()->create();
-        $response = $this->actingAs($adminUser)->get('api/gildsmith/apps');
+    $response->assertStatus(200);
+    $response->assertJsonStructure([
+        '*' => [
+            'identifier',
+            'groups',
+        ],
+    ]);
 
-        $response->assertStatus(200);
-        $response->assertJsonStructure([
-            '*' => [
-                'identifier',
-                'groups',
-            ],
-        ]);
+    $apps = json_decode($response->getContent(), true);
+    $identifiers = collect($apps)->pluck('identifier')->toArray();
 
-        $apps = json_decode($response->getContent(), true);
-        $identifiers = collect($apps)->pluck('identifier')->toArray();
-
-        expect($identifiers)->toContain('guestApp', 'userApp', 'adminApp', 'multiRoleApp');
-    });
-
+    expect($identifiers)->toContain('guestApp', 'userApp', 'adminApp', 'multiRoleApp');
 });

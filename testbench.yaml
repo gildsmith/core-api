@@ -5,6 +5,7 @@ providers:
   - Gildsmith\CoreApi\Providers\TestServiceProvider
 
 migrations:
+  - vendor/laravel/pennant/database/migrations
   - database/migrations
 
 laravel: ./workbench

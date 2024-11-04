@@ -21,5 +21,6 @@ it('does not allow user access', function () {
 
     $this->actingAs($user)
         ->get('api/gildsmith/languages')
-        ->assertStatus(403);
+        ->assertStatus(403)
+        ->assertJson(['message' => 'This action is unauthorized.']);
 });

@@ -3,6 +3,9 @@
 declare(strict_types=1);
 
 use Gildsmith\CoreApi\Models\Role;
+use Gildsmith\CoreApi\Models\User;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\UniqueConstraintViolationException;
 
 covers(Role::class);
@@ -32,4 +35,28 @@ describe('default roles', function () {
 
     })->throws(UniqueConstraintViolationException::class);
 
+});
+
+describe('relations', function () {
+
+    it('has a hasMany relationship with users', function () {
+        $role = new Role;
+
+        expect($role->users())->toBeInstanceOf(HasMany::class);
+        expect($role->users()->getRelated()::class)->toBe(User::class);
+    });
+
+    it('returns users via the hasMany relationship', function () {
+        $role = Role::create(['name' => 'test-role']);
+
+        $users = User::factory()->count(3)->create(['role_id' => $role->id]);
+
+        $role->refresh();
+
+        expect($role->users)
+            ->toBeInstanceOf(Collection::class)
+            ->and($role->users->pluck('id')->toArray())
+            ->toEqual($users->pluck('id')->toArray());
+
+    });
 });

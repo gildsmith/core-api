@@ -13,9 +13,9 @@ class ApiFeatureBuilder
 {
     protected ApiFeature $feature;
 
-    public function __construct(string $name)
+    public function __construct(string $name, ?ApiFeature $feature = null)
     {
-        $this->feature = new ApiFeature;
+        $this->feature = $feature ?? new ApiFeature;
         $this->feature->setName($name);
     }
 
@@ -26,11 +26,9 @@ class ApiFeatureBuilder
      */
     public function file(string $file): self
     {
-        $this->callable(function () use ($file) {
+        return $this->callable(function () use ($file) {
             require $file;
         });
-
-        return $this;
     }
 
     /**

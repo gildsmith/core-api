@@ -14,6 +14,7 @@ use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Pennant\Middleware\EnsureFeaturesAreActive;
 
 final class CoreServiceProvider extends ServiceProvider
 {
@@ -34,6 +35,7 @@ final class CoreServiceProvider extends ServiceProvider
     {
         $this->bootResources();
         $this->bootMiddlewares($kernel);
+        $this->bootPennantHandler();
         $this->bootGates();
         $this->bootRoutes();
         $this->bootApiFeatures();
@@ -71,6 +73,11 @@ final class CoreServiceProvider extends ServiceProvider
         $kernel->prependMiddlewareToGroup('api', ForceJsonResponse::class);
     }
 
+    public function bootPennantHandler(): void
+    {
+        EnsureFeaturesAreActive::whenInactive(fn () => response()->json(['message' => 'Unauthenticated.'], 403));
+    }
+
     public function bootGates(): void
     {
         Gate::define('role', fn ($user, $role) => $user->hasRole($role));
@@ -95,8 +102,7 @@ final class CoreServiceProvider extends ServiceProvider
             ->file($this->packagePath('routes/gildsmith.php'));
 
         Gildsmith::feature('channels')
-            ->file($this->packagePath('routes/channels.php'))
-            ->flagged('admin');
+            ->file($this->packagePath('routes/channels.php'));
     }
 
     /**
